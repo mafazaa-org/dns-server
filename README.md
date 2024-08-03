@@ -30,6 +30,16 @@ and for running the secondary server you just have to add `--secondary` to the c
 python src/main.py --secondary
 ```
 
+#### Executable
+
+First make sure you have `pyinstaller` installed by running the following command
+
+```cmd
+pyinstaller -v
+```
+
+for making an executable, you can run the script `build.bat` in your terminal and it will create `dns.exe` in a dist folder
+
 ### Content filtering
 
 This is how to do it using opendns, if you want to use another service change the `PRIMARY_SERVER` and `SECONDARY_SERVER` constants in main.py

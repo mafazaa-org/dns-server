@@ -2,8 +2,8 @@ from dnserver import DNSServer
 from time import sleep
 from sys import argv
 
-PRIMARY_SERVER = "208.67.222.222"
-SECONDARY_SERVER = "208.67.220.220"
+PRIMARY_SERVER = "1.1.1.3"
+SECONDARY_SERVER = "1.0.0.3"
 
 
 def main(): 
