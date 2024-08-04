@@ -1,7 +1,7 @@
 echo 
 echo uncomment DNS and DNSStubListener and change them to {your.Dns.Server.ip} and no respectively
 echo 
-echo ok
+echo press enter to continue
 read
 
 sudo nano /etc/systemd/resolved.conf
@@ -16,4 +16,4 @@ echo congratulations, now we are going to shutdown the system
 echo 
 read
 
-sudo shutdown
+sudo shutdown -h now
