@@ -1,14 +1,9 @@
 from dnserver import DNSServer
 from time import sleep
-from sys import argv
-
-PRIMARY_SERVER = "1.1.1.3"
-SECONDARY_SERVER = "1.0.0.3"
-
 
 def main(): 
     
-    server = DNSServer(upstream = (SECONDARY_SERVER if argv[-1] == "--secondary" else PRIMARY_SERVER))
+    server = DNSServer(upstream = "Server")
     
     server.start()
     

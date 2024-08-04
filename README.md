@@ -1,44 +1,41 @@
-# Pam DNS Server
+# Mafaza DNS Server
 
 A server for blocking adult content, ads, music, movies...etc.
 
 ## Install
 
-### Setup
+### Setup on Ubuntu
 
 first clone the repository using the following command
 
-```cmd
+```shell
 git clone https://github.com/ahmed-elbehairy7/dns
 ```
 
-just install the dnserver module using the following command
+Now customize the upstream server you want to forward to by editing this line in main.py
 
-```cmd
-pip install -r requirements.txt
+```python
+1 from dnserver import DNSServer
+2 from time import sleep
+3
+4 def main():
+5
+6     server = DNSServer(upstream = "1.1.1.3") <== RIGHT HERE
+7
+8     server.start()
 ```
 
-then just run the script src/main.py and test the server
+then run the freePort.sh file to make sure you free port 53 from the systemd-r
 
-```cmd
-python src/main.py
+```shell
+./freePort.sh
 ```
 
-and for running the secondary server you just have to add `--secondary` to the command like:
+this script should shutdown the server, when you launch it again, run this command to run the server script
 
-```cmd
-python src/main.py --secondary
+```shell
+./run.sh
 ```
-
-#### Executable
-
-First make sure you have `pyinstaller` installed by running the following command
-
-```cmd
-pyinstaller -v
-```
-
-for making an executable, you can run the script `build.bat` in your terminal and it will create `dns.exe` in a dist folder
 
 ### Content filtering
 
