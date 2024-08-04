@@ -1,0 +1,3 @@
+git pull
+
+./prepare.sh
