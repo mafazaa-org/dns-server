@@ -4,15 +4,16 @@ sudo apt install python3 python3-pip -y
 
 sudo pip3 install -r requirements.txt 
 
-sudo apt autoremove
+sudo apt remove python3-pip -y
 
-sudo apt autoclean
+sudo apt autoremove -y
 
-sudo apt clean
+sudo apt autoclean -y
 
-sudo apt-get autoremove
+sudo apt clean -y
 
-sudo apt-get autoclean
+sudo apt-get autoremove -y
 
-sudo apt-get clean
+sudo apt-get autoclean -y
 
+sudo apt-get clean -y
