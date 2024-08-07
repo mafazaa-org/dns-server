@@ -3,7 +3,7 @@ from time import sleep
 
 def main(): 
     
-    server = DNSServer(upstream = "Server")
+    server = DNSServer.from_toml( zones_file="src/zones.toml", upstream = "Server")
     
     server.start()
     
@@ -16,7 +16,5 @@ def main():
         print('stopping DNS server')
         server.stop()
      
-    server.stop()
-
 if __name__ == "__main__":
     main()
