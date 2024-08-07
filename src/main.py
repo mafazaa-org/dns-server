@@ -3,7 +3,7 @@ from time import sleep
 
 def main(): 
     
-    server = DNSServer.from_toml( zones_file="src/zones.toml", upstream = "Server")
+    server = DNSServer.from_toml( zones_file="src/zones.toml", upstream = "208.67.220.220")
     
     server.start()
     
