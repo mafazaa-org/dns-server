@@ -1,5 +1,4 @@
-from constants import DEFAULT_PORT
-
+DEFAULT_PORT = 53
 class DnsServer():
     def __init__(self, upstream : str) -> None:
         self.upstream = upstream

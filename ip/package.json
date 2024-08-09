@@ -1,0 +1,16 @@
+{
+  "name": "ip",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "puppeteer-core": "^21.0.0"
+  }
+}

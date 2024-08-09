@@ -1,12 +1,9 @@
-from dnsserver import DnsServer
-from constants import PRIMARY_SERVER, SECONDARY_SERVER
+from dnserver import DNSServer
 from time import sleep
-from sys import argv
-
 
 def main(): 
     
-    server = DnsServer(upstream = (SECONDARY_SERVER if argv[-1] == "--secondary" else PRIMARY_SERVER))
+    server = DNSServer.from_toml( zones_file="src/zones.toml", upstream = "Server")
     
     server.start()
     
@@ -19,7 +16,5 @@ def main():
         print('stopping DNS server')
         server.stop()
      
-    server.stop()
-
 if __name__ == "__main__":
     main()
