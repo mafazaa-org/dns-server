@@ -4,8 +4,6 @@ const ArgumentParser = require("argparse").ArgumentParser;
 const parser = new ArgumentParser();
 
 parser.add_argument("url", { help: "the url to visit" });
-parser.add_argument("email", { help: "the email to sign in with" });
-parser.add_argument("password", { help: "the password for signing in" });
 
 const args = parser.parse_args();
 
@@ -20,10 +18,13 @@ async function main() {
 
 	await page.waitForSelector("input[name=username]");
 
-	await page.$eval("input[name=username]", (el) => (el.value = args.email));
+	await page.$eval(
+		"input[name=username]",
+		(el) => (el.value = "ahmedelbehairy@mafazaa.com")
+	);
 	await page.$eval(
 		"input[name=password]",
-		(el) => (el.value = args.password)
+		(el) => (el.value = "@Hm258191825")
 	);
 
 	await page.click('input[type="submit"]');
