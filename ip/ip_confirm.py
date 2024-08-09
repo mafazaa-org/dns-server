@@ -2,6 +2,7 @@ from imaplib import IMAP4_SSL
 from email import message_from_bytes
 from re import search
 from getpass import getpass
+from requests import get
 
 def main():
     server = "mail.privateemail.com"
@@ -39,7 +40,7 @@ def main():
             link = (search("https://dashboard-ipv4.opendns.com/n/.+", string).group().strip())
             
     
-    print(link)
+    print(get(link).text)
                 
     imap.close()
     

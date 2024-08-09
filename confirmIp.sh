@@ -2,7 +2,7 @@ sudo apt update
 
 sudo apt install chromium-browser nodejs npm -y
 
-python3 src/ip_confirm.py
+python3 ip/ip_confirm.py
 
 sudo apt remove nodejs npm chromium-browser -y
 
