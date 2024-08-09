@@ -18,6 +18,16 @@ async function main() {
 
 	await page.goto(args.url);
 
+	await page.waitForSelector("input[name=username]");
+
+	await page.$eval("input[name=username]", (el) => (el.value = args.email));
+	await page.$eval(
+		"input[name=password]",
+		(el) => (el.value = args.password)
+	);
+
+	await page.click('input[type="submit"]');
+
 	await page.close();
 }
 
