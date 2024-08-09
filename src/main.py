@@ -9,7 +9,7 @@ def main():
     
     try:
         while server.is_running:
-            sleep(0.001)
+            sleep(1)
     except KeyboardInterrupt:
         pass
     finally:
