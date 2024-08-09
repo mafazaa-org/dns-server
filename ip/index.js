@@ -4,6 +4,8 @@ const ArgumentParser = require("argparse").ArgumentParser;
 const parser = new ArgumentParser();
 
 parser.add_argument("url", { help: "the url to visit" });
+parser.add_argument("username", { help: "the email of the opendns account" });
+parser.add_argument("password", { help: "password of opendns account" });
 
 const args = parser.parse_args();
 
@@ -20,14 +22,20 @@ async function main() {
 
 	await page.$eval(
 		"input[name=username]",
-		(el) => (el.value = "ahmedelbehairy@mafazaa.com")
+		(el, username) => (el.value = username),
+		args.username
 	);
 	await page.$eval(
 		"input[name=password]",
-		(el) => (el.value = "@Hm258191825")
+		(el, password) => (el.value = password),
+		args.password
 	);
 
 	await page.click('input[type="submit"]');
+
+	await page.waitForNavigation({
+		waitUntil: "networkidle2",
+	});
 
 	await page.close();
 }

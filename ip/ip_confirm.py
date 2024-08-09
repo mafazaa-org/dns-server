@@ -6,9 +6,9 @@ from os import popen
 
 def main():
     server = "mail.privateemail.com"
-    email_address = "ahmedelbehairy@mafazaa.com"
+    email_address = input("Email: ")
     password = getpass()
-    ip_address = input("enter ip address of server: ")
+    ip_address = input("Ip Address: ")
     
     link = None
     
@@ -40,7 +40,7 @@ def main():
             link = (search("https://dashboard-ipv4.opendns.com/n/.+", string).group().strip())
             
     
-    popen(cmd= f"node ip/index.js {link} {email_address} {password}")
+    popen(cmd= f"node ip/index.js {link} {email_address} {getpass("openDNS password: ")}")
                 
     imap.close()
     

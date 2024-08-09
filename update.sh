@@ -1,6 +1,6 @@
 git fetch --all
 
-git reset --hard origin/opendns
+git reset --hard origin/dev
 
 chmod +x *.sh
 
