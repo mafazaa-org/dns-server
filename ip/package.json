@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "argparse": "^2.0.1",
     "puppeteer-core": "^21.0.0"
   }
 }
