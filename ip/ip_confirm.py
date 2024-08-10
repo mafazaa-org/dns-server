@@ -7,7 +7,7 @@ from os import popen
 def main():
     server = "mail.privateemail.com"
     email_address = input("email Email: ")
-    password = getpass("email password")
+    password = getpass("email password: ")
     ip_address = input("Ip Address: ")
     
     link = None
