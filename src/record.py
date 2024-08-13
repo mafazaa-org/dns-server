@@ -1,14 +1,10 @@
 from __future__ import annotations as _annotations
 
-import logging
 from datetime import datetime
-from pathlib import Path
 from textwrap import wrap
-from typing import Any, List
 
 from dnslib import QTYPE, RR, DNSLabel, dns
-from dnslib.proxy import ProxyResolver as LibProxyResolver
-from dnslib.server import BaseResolver as LibBaseResolver, DNSServer as LibDNSServer
+from dnslib.server import  DNSServer as LibDNSServer
 
 from zone import Zone
 
@@ -38,7 +34,7 @@ class Record:
 
         rd_cls, self._rtype = TYPE_LOOKUP[zone.type]
 
-        args: list[Any]
+        args: list
         if isinstance(zone.answer, str):
             if self._rtype == QTYPE.TXT:
                 args = [wrap(zone.answer, 255)]

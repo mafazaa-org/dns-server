@@ -964,3 +964,8 @@ host = 'www.google.cat'
 type = 'A'
 answer = '216.239.38.120'
 
+[[zones]]
+host = 'www.google.com'
+type = 'AAAA'
+answer = '2a00:1450:4006:811::2004'
+

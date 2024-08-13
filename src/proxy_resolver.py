@@ -1,25 +1,36 @@
 from dnslib.proxy import ProxyResolver as LibProxyResolver
-from records import Records
 from dnslib import QTYPE
+from record import Record
+from zone import Zone
 
 class ProxyResolver(LibProxyResolver):
-    def __init__(self, records: Records, upstream: str):
+    def __init__(self, records: list[Record], upstream: str, newRecord):
+        self.newRecord = newRecord
         self.records = records
         super().__init__(address=upstream, port=53, timeout=5)
 
     def resolve(self, request, handler):
-        answer = resolve(request, handler, self.records)
+        answer = _resolve(request, self.records)
         if answer:
             return answer
 
         type_name = QTYPE[request.q.qtype]
-        print('no local zone found, proxying %s[%s]', request.q.qname, type_name)
-        return super().resolve(request, handler)
+        print(f'no local zone found, proxying {request.q.qname}[{type_name}]')
+        newZone =  super().resolve(request, handler)
+        
+        host = newZone.a.rname
+        query_type = QTYPE[newZone.q.qtype]
+        query_answer = newZone.a.rdata
+        
+        if query_type == 'AAAA' and query_answer == '::ffff:146.112.61.106' or query_type == 'A' and query_answer == '146.112.61.106':   
+            self.newRecord(host=newZone.a.rname, type=QTYPE[newZone.q.qtype], answer=newZone.a.rdata)
+            # self.records.append(Record(Zone(host=newZone.a.rname, type=QTYPE[newZone.q.qtype], answer=newZone.a.rdata)))
+        
+        return newZone
     
 
 
-def resolve(request, handler, records):
-    records = [Record(zone) for zone in records.zones]
+def _resolve(request, records : list[Record]):
     type_name = QTYPE[request.q.qtype]
     reply = request.reply()
     for record in records:
@@ -27,7 +38,7 @@ def resolve(request, handler, records):
             reply.add_answer(record.rr)
 
     if reply.rr:
-        print('found zone for %s[%s], %d replies', request.q.qname, type_name, len(reply.rr))
+        print(f'found zone for {request.q.qname}[{type_name}], {len(reply.rr)} replies')
         return reply
 
     # no direct zone so look for an SOA record for a higher level zone
@@ -36,5 +47,5 @@ def resolve(request, handler, records):
             reply.add_answer(record.rr)
 
     if reply.rr:
-        print('found higher level SOA resource for %s[%s]', request.q.qname, type_name)
+        print(f'found higher level SOA resource for {request.q.qname}[{type_name}]')
         return reply

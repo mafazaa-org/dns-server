@@ -1,10 +1,10 @@
-from dnserver import DNSServer
 from time import sleep
+from dnsserver import DnsServer
 
 def main(): 
     
-    server = DNSServer.from_toml( zones_file="src/zones.toml", upstream = "Server")
-    
+    server = DnsServer("15.184.191.201")
+        
     server.start()
     
     try:
