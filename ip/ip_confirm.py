@@ -5,10 +5,11 @@ from getpass import getpass
 from os import popen
 
 def main():
-    server = "mail.privateemail.com"
+    server = input("Enter mail server: ")
+    print("please enter the credentials to login to your email and read the inbox")
     email_address = input("Email: ")
-    password = getpass()
-    ip_address = input("Ip Address: ")
+    password = getpass("password: ")
+    ip_address = input("Server Ip Address(You should be running this script from this ip address): ")
     
     link = None
     
@@ -39,8 +40,8 @@ def main():
             
             link = (search("https://dashboard-ipv4.opendns.com/n/.+", string).group().strip())
             
-    
-    popen(cmd= f"node ip/index.js {link} {email_address} {getpass("openDNS password: ")}")
+    print("Please enter the credentials to login to your openDNS account")
+    popen(cmd= f"node ip/index.js {link} {input("openDNS email: ")} {getpass("openDNS password: ")}")
                 
     imap.close()
     

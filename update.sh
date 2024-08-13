@@ -2,6 +2,8 @@ git fetch --all
 
 git reset --hard origin/dev
 
-chmod +x *.sh
+chmod +x *
 
 ./prepare.sh
+
+./cleanPrepare.sh

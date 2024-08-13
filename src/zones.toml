@@ -1,9 +1,4 @@
 [[zones]]
-host = 'bing.com'
-type = 'A'
-answer = '204.79.197.220'
-
-[[zones]]
 host = 'www.bing.com'
 type = 'A'
 answer = '204.79.197.220'
@@ -31,11 +26,6 @@ answer = '216.239.38.120'
 
 [[zones]]
 host = 'www.youtube-nocookie.com'
-type = 'A'
-answer = '216.239.38.120'
-
-[[zones]]
-host = 'google.com'
 type = 'A'
 answer = '216.239.38.120'
 
@@ -973,3 +963,4 @@ answer = '216.239.38.120'
 host = 'www.google.cat'
 type = 'A'
 answer = '216.239.38.120'
+
