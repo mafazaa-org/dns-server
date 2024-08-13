@@ -18,13 +18,13 @@ class ProxyResolver(LibProxyResolver):
         print(f'no local zone found, proxying {request.q.qname}[{type_name}]')
         newZone =  super().resolve(request, handler)
         
-        host = newZone.a.rname
+        host : str = newZone.a.rname.__str__().rstrip(".")
         query_type = QTYPE[newZone.q.qtype]
-        query_answer = newZone.a.rdata
+        query_answer = newZone.a.rdata.__str__()
         
-        if query_type == 'AAAA' and query_answer == '::ffff:146.112.61.106' or query_type == 'A' and query_answer == '146.112.61.106':   
-            self.newRecord(host=newZone.a.rname, type=QTYPE[newZone.q.qtype], answer=newZone.a.rdata)
-            # self.records.append(Record(Zone(host=newZone.a.rname, type=QTYPE[newZone.q.qtype], answer=newZone.a.rdata)))
+        if query_type == 'AAAA' and query_answer ==  '::ffff:9270:3d6a' or query_type == 'A' and query_answer == '146.112.61.106':   
+            self.newRecord(host=host, type=query_type, answer=query_answer)
+            self.records.append(Record(Zone(host=host,type=query_type, answer=query_answer)))
         
         return newZone
     

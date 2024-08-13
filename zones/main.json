@@ -1,19 +1,7 @@
 [
-	{
-		"host": "www.bing.com",
-		"type": "A",
-		"answer": "204.79.197.220"
-	},
-	{
-		"host": "www.youtube.com",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "m.youtube.com",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
+	{ "host": "www.bing.com", "type": "A", "answer": "204.79.197.220" },
+	{ "host": "www.youtube.com", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "m.youtube.com", "type": "A", "answer": "216.239.38.120" },
 	{
 		"host": "youtubei.googleapis.com",
 		"type": "A",
@@ -24,950 +12,215 @@
 		"type": "A",
 		"answer": "216.239.38.120"
 	},
-
 	{
 		"host": "www.youtube-nocookie.com",
 		"type": "A",
 		"answer": "216.239.38.120"
 	},
-	{
-		"host": "www.google.com",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ad",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ae",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.af",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.ag",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.al",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.am",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.ao",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.ar",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.as",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.at",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.au",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.az",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ba",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.bd",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.be",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.bf",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.bg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.bh",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.bi",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.bj",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.bn",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.bo",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.br",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.bs",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.bt",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.bw",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.by",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.bz",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ca",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cd",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cf",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ch",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ci",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.ck",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cl",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cn",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.co",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.cr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.cu",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cv",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.cy",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cz",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.de",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.dj",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.dk",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.dm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.do",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.dz",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.ec",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ee",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.eg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.es",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.et",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.fi",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.fj",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.fm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.fr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ga",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ge",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.gg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.gh",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.gi",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.gl",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.gm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.gr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.gt",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.gy",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.hk",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.hn",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.hr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ht",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.hu",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.id",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ie",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.il",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.im",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.in",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.iq",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.is",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.it",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.je",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.jm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.jo",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.jp",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.ke",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.kh",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ki",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.kg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.kr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.kw",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.kz",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.la",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.lb",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.li",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.lk",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.ls",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.lt",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.lu",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.lv",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.ly",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.ma",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.md",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.me",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.mg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.mk",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ml",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.mm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.mn",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.mt",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.mu",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.mv",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.mw",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.mx",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.my",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.mz",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.na",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.ng",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.ni",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ne",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.nl",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.no",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.np",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.nr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.nu",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.nz",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.om",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.pa",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.pe",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.pg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.ph",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.pk",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.pl",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.pn",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.pr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ps",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.pt",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.py",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.qa",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ro",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ru",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.rw",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.sa",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.sb",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.sc",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.se",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.sg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.sh",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.si",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.sk",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.sl",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.sn",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.so",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.sm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.sr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.st",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.sv",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.td",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.tg",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.th",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.tj",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.tl",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.tm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.tn",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.to",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.tr",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.tt",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.tw",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.tz",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.ua",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.ug",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.uk",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.uy",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.uz",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.vc",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.ve",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.vi",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.com.vn",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.vu",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.ws",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.rs",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.za",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.zm",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.co.zw",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
-	{
-		"host": "www.google.cat",
-		"type": "A",
-		"answer": "216.239.38.120"
-	},
+	{ "host": "www.google.com.", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ad", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ae", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.af", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.ag", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.al", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.am", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.ao", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.ar", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.as", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.at", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.au", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.az", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ba", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.bd", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.be", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.bf", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.bg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.bh", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.bi", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.bj", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.bn", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.bo", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.br", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.bs", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.bt", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.bw", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.by", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.bz", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ca", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cd", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cf", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ch", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ci", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.ck", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cl", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cn", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.co", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.cr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.cu", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cv", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.cy", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cz", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.de", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.dj", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.dk", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.dm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.do", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.dz", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.ec", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ee", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.eg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.es", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.et", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.fi", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.fj", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.fm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.fr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ga", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ge", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.gg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.gh", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.gi", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.gl", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.gm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.gr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.gt", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.gy", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.hk", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.hn", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.hr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ht", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.hu", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.id", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ie", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.il", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.im", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.in", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.iq", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.is", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.it", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.je", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.jm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.jo", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.jp", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.ke", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.kh", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ki", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.kg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.kr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.kw", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.kz", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.la", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.lb", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.li", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.lk", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.ls", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.lt", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.lu", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.lv", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.ly", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.ma", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.md", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.me", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.mg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.mk", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ml", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.mm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.mn", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.mt", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.mu", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.mv", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.mw", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.mx", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.my", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.mz", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.na", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.ng", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.ni", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ne", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.nl", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.no", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.np", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.nr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.nu", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.nz", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.om", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.pa", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.pe", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.pg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.ph", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.pk", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.pl", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.pn", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.pr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ps", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.pt", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.py", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.qa", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ro", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ru", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.rw", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.sa", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.sb", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.sc", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.se", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.sg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.sh", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.si", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.sk", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.sl", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.sn", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.so", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.sm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.sr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.st", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.sv", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.td", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.tg", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.th", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.tj", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.tl", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.tm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.tn", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.to", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.tr", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.tt", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.tw", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.tz", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.ua", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.ug", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.uk", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.uy", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.uz", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.vc", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.ve", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.vi", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.com.vn", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.vu", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.ws", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.rs", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.za", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.zm", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.co.zw", "type": "A", "answer": "216.239.38.120" },
+	{ "host": "www.google.cat", "type": "A", "answer": "216.239.38.120" },
 	{
 		"host": "www.google.com",
 		"type": "AAAA",
 		"answer": "2a00:1450:4006:811::2004"
-	}
+	},
+	{ "host": "pornhub.com", "type": "A", "answer": "146.112.61.106" },
+	{ "host": "pornhub.com", "type": "AAAA", "answer": "::ffff:9270:3d6a" },
+	{ "host": "sex.com", "type": "A", "answer": "146.112.61.106" },
+	{ "host": "sex.com", "type": "AAAA", "answer": "::ffff:9270:3d6a" },
+	{ "host": "xnxx.com", "type": "A", "answer": "146.112.61.106" },
+	{ "host": "xnxx.com", "type": "AAAA", "answer": "::ffff:9270:3d6a" },
+	{ "host": "motherless.com", "type": "A", "answer": "146.112.61.106" },
+	{ "host": "motherless.com", "type": "AAAA", "answer": "::ffff:9270:3d6a" },
+	{ "host": "4chan.com", "type": "A", "answer": "146.112.61.106" },
+	{ "host": "4chan.com", "type": "AAAA", "answer": "::ffff:9270:3d6a" },
+	{ "host": "naked.com", "type": "A", "answer": "146.112.61.106" },
+	{ "host": "naked.com", "type": "AAAA", "answer": "::ffff:9270:3d6a" },
+	{ "host": "xvideos.com", "type": "A", "answer": "146.112.61.106" },
+	{ "host": "xvideos.com", "type": "AAAA", "answer": "::ffff:9270:3d6a" }
 ]
