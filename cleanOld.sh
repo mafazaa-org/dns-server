@@ -1,0 +1,1 @@
+sudo pip3 uninstall dnserver
