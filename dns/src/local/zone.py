@@ -18,7 +18,7 @@ class Zone:
     answer: str | list[str | int]
     
     @classmethod
-    def from_raw(cls, index: int, data):
+    def from_json(cls, index: int, data):
         if not isinstance(data, dict) or data.keys() != {'host', 'type', 'answer'}:
             raise ValueError(
                 f'Zone {index} is not a valid dict, must have keys "host", "type" and "answer", got {data!r}'

@@ -1,4 +1,4 @@
-git rebase --reapply-cherry-picks --no-fork-point dev
+git reb dev
 
 git diff dev --stat
 

@@ -1,1 +1,2 @@
-dnserver==0.4.0
+dnslib==0.9.25
+typing_extensions==4.12.2

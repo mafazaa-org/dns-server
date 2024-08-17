@@ -1,9 +1,9 @@
 from time import sleep
-from dnsserver import DnsServer
+from .server.dnsserver import DnsServer
 
 def main(): 
     
-    server = DnsServer("15.184.191.201")
+    server = DnsServer("157.241.6.180")
         
     server.start()
     
