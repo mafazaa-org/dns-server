@@ -100,6 +100,10 @@ class Record:
             print(f"found higher level SOA resource for {request.q.qname}[{type_name}]")
             return reply
 
+    @classmethod
+    def fetch_records(cls):
+        return []
+
 
 def load_records(zones_file: str) -> None:
     with open(zones_file, "r") as rf:

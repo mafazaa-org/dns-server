@@ -1,20 +1,23 @@
 from __future__ import annotations as _annotations
 
 from dnslib.server import DNSServer as LibDNSServer
-from src.local.record import Record, load_records, save_records
+from src.local.record import Record
 from src.server.proxy_resolver import ProxyResolver
 from src.local.zone import Zone, RecordType
-from typing import List
 
 DEFAULT_PORT = 53
+LEVELS = ["high", "low"]
+OPENDNS_UPSTREAMS = ["208.67.222.222", "208.67.220.220"]
+MAFAZAA_UPSTREAMS = ["15.184.191.201", "15.184.243.155"]
 
 
 class DnsServer:
-    def __init__(self, upstream: str) -> None:
-        self.upstream = upstream
+    def __init__(self) -> None:
+        self.upstream = self.choose(MAFAZAA_UPSTREAMS, "proxy server upstream: ")
+        self.level = self.choose(LEVELS, "protection level: ")
         self.udp_server: LibDNSServer | None = None
         self.tcp_server: LibDNSServer | None = None
-        self.records = load_records("zones/main.json")
+        self.records = Record.fetch_records()
 
     def start(self):
         print(
@@ -29,7 +32,6 @@ class DnsServer:
         self.tcp_server.start_thread()
 
     def stop(self):
-        save_records("zones/new.json")
         self.udp_server.stop()
         self.udp_server.server.server_close()
         self.tcp_server.stop()
@@ -41,8 +43,13 @@ class DnsServer:
             self.tcp_server and self.tcp_server.isAlive()
         )
 
-    def add_record(self, host: str, type: RecordType, answer: str):
-        self.records.zones.append(Zone(host, type, answer))
-
-    def set_records(self, zones: List[Zone]):
-        self.records.zones = zones
+    def choose(self, options, prompt):
+        length = len(options)
+        print(prompt, end="\n\n")
+        for i, x in enumerate(options):
+            print(f"({i}) {x}")
+        while True:
+            value = int(input("answer: "))
+            if value > length:
+                continue
+            return options[value]
