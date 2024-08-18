@@ -1,5 +1,6 @@
 from time import sleep
 from .server.dnsserver import DnsServer
+from .records.record import Record
 
 
 def main():

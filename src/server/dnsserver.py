@@ -1,23 +1,19 @@
 from __future__ import annotations as _annotations
 
 from dnslib.server import DNSServer as LibDNSServer
-from src.local.record import Record
 from src.server.proxy_resolver import ProxyResolver
-from src.local.zone import Zone, RecordType
 
 DEFAULT_PORT = 53
 LEVELS = ["high", "low"]
-OPENDNS_UPSTREAMS = ["208.67.222.222", "208.67.220.220"]
-MAFAZAA_UPSTREAMS = ["15.184.191.201", "15.184.243.155"]
+UPSTREAMS = ["208.67.222.222", "208.67.220.220"]
 
 
 class DnsServer:
     def __init__(self) -> None:
-        self.upstream = self.choose(MAFAZAA_UPSTREAMS, "proxy server upstream: ")
+        self.upstream = self.choose(UPSTREAMS, "proxy server upstream: ")
         self.level = self.choose(LEVELS, "protection level: ")
         self.udp_server: LibDNSServer | None = None
         self.tcp_server: LibDNSServer | None = None
-        self.records = Record.fetch_records()
 
     def start(self):
         print(
