@@ -1,11 +1,14 @@
 from time import sleep
 from .server.dnsserver import DnsServer
 from .records.record import Record
+from .sync.records import fetch_records, save_records
 
 
 def main():
 
     server = DnsServer()
+
+    fetch_records()
 
     server.start()
 
@@ -15,6 +18,8 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
+        print("saving records")
+        save_records()
         print("stopping DNS server")
         server.stop()
 

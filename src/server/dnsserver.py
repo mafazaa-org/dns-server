@@ -2,16 +2,16 @@ from __future__ import annotations as _annotations
 
 from dnslib.server import DNSServer as LibDNSServer
 from src.server.proxy_resolver import ProxyResolver
+from src.utils.choose import choose
+from os import environ
 
 DEFAULT_PORT = 53
-LEVELS = ["high", "low"]
 UPSTREAMS = ["208.67.222.222", "208.67.220.220"]
 
 
 class DnsServer:
     def __init__(self) -> None:
-        self.upstream = self.choose(UPSTREAMS, "proxy server upstream: ")
-        self.level = self.choose(LEVELS, "protection level: ")
+        self.upstream = choose(UPSTREAMS, environ["server"], ["primary", "secondary"])
         self.udp_server: LibDNSServer | None = None
         self.tcp_server: LibDNSServer | None = None
 
@@ -38,14 +38,3 @@ class DnsServer:
         return (self.udp_server and self.udp_server.isAlive()) or (
             self.tcp_server and self.tcp_server.isAlive()
         )
-
-    def choose(self, options, prompt):
-        length = len(options)
-        print(prompt, end="\n\n")
-        for i, x in enumerate(options):
-            print(f"({i}) {x}")
-        while True:
-            value = int(input("answer: "))
-            if value > length:
-                continue
-            return options[value]

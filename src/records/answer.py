@@ -90,3 +90,7 @@ class Answer:
                 f'Zone {self.host} is invalid, "answer" must be a string or list of strings and ints, got {_answer!r}'
             )
         self._answer = _answer
+
+    @classmethod
+    def from_json(cls, json: dict):
+        return cls(json["type"], json["answer"], json.get("ttl", None))

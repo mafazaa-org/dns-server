@@ -69,9 +69,14 @@ class Record:
         #     return reply
 
     @classmethod
-    def initialize(cls, _hosts: list):
-        cls.records: list[Record] = _hosts
+    def initialize(cls, data: dict):
+        raw_records: list[dict] = data["list"]
+        cls.records = [cls.from_json(x) for x in raw_records]
         cls.available = True
+
+    @classmethod
+    def from_json(cls, json: dict):
+        return cls(json["host"])
 
     @classmethod
     def insert(cls, record: Record):
