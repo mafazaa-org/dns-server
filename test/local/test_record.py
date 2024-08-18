@@ -2,7 +2,7 @@ from json import load, dump
 from dns.src.local.record import Record, load_records, save_records
 from dns.src.local.zone import Zone
 
-test_json = "dns/test/local/test_record.json"
+test_json = "test/local/test_record.json"
 
 
 def main():
