@@ -10,8 +10,8 @@ class Zone(Record):
         self.answers = answers
         super().__init__(host)
 
-    def get_answer(self, _type: str) -> RR:
-        return super().get_answer(_type, self.answers)
+    def get_answer(self, _type: str, host) -> RR:
+        return super().get_answer(_type, host, self.answers)
 
     @classmethod
     def insert(cls, host: str, _type: str, _answer: str):

@@ -40,24 +40,26 @@ class Record:
     def __init__(self, host):
         self.host = host
 
-    def match(self, q):
-        return match(self.host, q.qname.__str__().rstrip("."))
+    def match(self, host: str):
+        return match(self.host, host)
 
     def sub_match(self, q):
         return self._rtype == QTYPE.SOA and q.qname.matchSuffix(self._rname)
 
-    def get_answer(self, _type: str, answers: list) -> RR:
+    def get_answer(self, _type: str, host: str, answers: list) -> RR:
         for answer in answers:
             if answer.type == _type:
-                return answer.getRR(self.host)
+                return answer.getRR(host)
 
     @classmethod
-    def search(cls, reply: DNSRecord, request: DNSRecord, type_name: RecordType):
+    def search(cls, reply: DNSRecord, type_name: RecordType, host: str):
         for record in cls.records:
-            if record.match(request.q):
-                rr = record.get_answer(type_name)
+            if record.match(host):
+                rr = record.get_answer(type_name, host)
                 if rr:
                     reply.add_answer(rr)
+                break
+        return reply
 
         # # no direct zone so look for an SOA record for a higher level zone
         # for record in Record.records:
@@ -87,3 +89,7 @@ class Record:
         cls.available = False
         cls.records.sort(key=cls.to_string)
         cls.available = True
+
+    @classmethod
+    def record_host(cls, request: DNSRecord):
+        return request.q.qname.__str__().removesuffix(".").removeprefix("www.")

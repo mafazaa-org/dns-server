@@ -1,45 +1,44 @@
 from dnslib.proxy import ProxyResolver as LibProxyResolver
-from dnslib import QTYPE
+from dnslib import QTYPE, RCODE
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
-from src.records.record import Record
+from src.utils.constants import DEFAULT_PORT, PROXY_SERVER_TIMEOUT
 from src.records.zone import Zone
 from src.records.block import Block
-from src.records.cache import Cache
-from src.records.network_cache import NetworkCache
+from src.records.network import Network
+from src.records.record import Record
 
 
 class ProxyResolver(LibProxyResolver):
     def __init__(self, upstream: str):
-        super().__init__(address=upstream, port=53, timeout=5)
+        super().__init__(
+            address=upstream, port=DEFAULT_PORT, timeout=PROXY_SERVER_TIMEOUT
+        )
 
     def resolve(self, request: DNSRecord, handler: DNSHandler):
         try:
-            answer = self._resolve(request)
-            if answer:
-                return answer
-        except:
-            ...
+            reply = self._resolve(request, handler)
+        except Exception as e:
+            print(e)
+            reply = request.reply()
+            reply.header.rcode = getattr(RCODE, "NXDOMAIN")
 
-        type_name = QTYPE[request.q.qtype]
-        print(f"no local zone found, proxying {request.q.qname}[{type_name}]")
-        newZone = super().resolve(request, handler)
+        return reply
 
-        host: str = newZone.a.rname.__str__().rstrip(".")
-        _type = QTYPE[newZone.q.qtype]
-        _answer = newZone.a.rdata.__str__()
-
-        if _answer in ["146.112.61.106", "::ffff:9270:3d6a"]:
-            Block.insert(host)
-            return newZone
-
-        Cache.insert(host, _type, _answer)
-        return newZone
-
-    def _resolve(self, request: DNSRecord):
+    def _resolve(self, request: DNSRecord, handler: DNSHandler):
         type_name = QTYPE[request.q.qtype]
         reply = request.reply()
-        for RecordClass in [Cache, NetworkCache, Zone, Block]:
-            RecordClass.search(reply, request, type_name)
+        host = Record.record_host(request)
+        for RecordClass in [Zone, Block, Network]:
+            if not RecordClass.available:
+                print(RecordClass.__name__ + " is not available")
+                continue
+            reply = (
+                RecordClass.search(reply, type_name, host)
+                if RecordClass.__name__ != "Network"
+                else RecordClass.search(reply, type_name, host, request, handler)
+            )
             if reply.rr:
                 return reply
+
+        return reply
