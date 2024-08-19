@@ -9,7 +9,7 @@ branch = environ["branch"]
 level = environ["level"]
 
 url = (
-    lambda file: f"https://raw.githubusercontent.com/ahmed-elbehairy7/mafazaa-dns-lists/{branch}/{level}/{file}.json"
+    lambda file: f"https://raw.githubusercontent.com/mafazaa-org/dns-lists/{branch}/{level}/{file}.json"
 )
 
 RecordsClasses = [Block, Zone]
