@@ -1,27 +1,18 @@
-from time import sleep
 from .server.dnsserver import DnsServer
-from .records.record import Record
-from .sync.records import fetch_records, save_records
+from .records.block import Block
+from .records.zone import Zone
 
 
 def main():
 
     server = DnsServer()
 
-    fetch_records()
+    Zone.initialize()
+    Block.initialize()
 
     server.start()
 
-    try:
-        while server.is_running:
-            sleep(1)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        print("saving records")
-        save_records()
-        print("stopping DNS server")
-        server.stop()
+    server.serve_forever()
 
 
 if __name__ == "__main__":

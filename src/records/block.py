@@ -1,34 +1,62 @@
 from dnslib import RR
 from dnslib.dns import DNSRecord
+from dnslib.server import DNSHandler
 from .record import Record, RecordType
-from .answer import Answer
+from .answer import Answer, MAX_TTL
 from re import match
 
 
 class Block(Record):
-    file_name = "blocklist"
-    BLOCK_TTL = 4294967295
-    answers = [Answer("A", "0.0.0.0", BLOCK_TTL), Answer("AAAA", "::", BLOCK_TTL)]
-
-    def get_answer(self, _type: str, host: str) -> RR:
-        return super().get_answer(_type, host, Block.answers)
-
-    @classmethod
-    def search(cls, reply: DNSRecord, type_name: RecordType, host: str):
-        if cls.regex.match(host):
-            reply.add_answer(cls.regex.get_answer(type_name, host))
-            return reply
-        return super().search(reply, type_name, host)
+    table_name = "blocklist"
+    answers = [
+        Answer("A", "0.0.0.0", MAX_TTL),
+        Answer("AAAA", "::", MAX_TTL),
+    ]
+    regex: str
 
     @classmethod
-    def insert(cls, host: str):
-        super().insert(Block(host))
+    def initialize(cls):
+        super().initialize()
+        contains = cls.execute(
+            "SELECT * FROM blockregex WHERE is_subdomain == ?",
+            (False,),
+            callback=lambda x: x.fetchall(),
+        )
+        subdomains = cls.execute(
+            "SELECT * FROM blockregex WHERE is_subdomain == ?",
+            (True,),
+            callback=lambda x: x.fetchall(),
+        )
+
+        cls.regex = cls.create_regex(
+            map(lambda x: x[0], contains), map(lambda x: x[0], subdomains)
+        )
 
     @classmethod
-    def initialize(cls, data: dict):
-        cls.regex: Block = cls(data["regex"])
-        return super().initialize(data)
+    def get_answers(
+        cls, reply: DNSRecord, _type: str, host: str, handler: DNSHandler
+    ) -> RR:
+        reply = super().get_answers(reply, _type, host, Block.answers, handler)
+        if not reply.rr:
+            reply.add_answer(Answer("CNAME", "block.opendns.com", MAX_TTL).getRR(host))
+        return reply
 
     @classmethod
-    def from_json(cls, json: dict):
-        return cls(json)
+    def query(
+        cls,
+        reply: DNSRecord,
+        type_name: RecordType,
+        host: str,
+        request: DNSRecord,
+        handler: DNSHandler,
+    ):
+        if match(cls.regex, host):
+            return cls.get_answers(reply, type_name, host, handler)
+        ans = super().query(reply, type_name, host, request, handler)
+        if ans:
+            return cls.get_answers(reply, type_name, host, handler)
+        return reply
+
+    @classmethod
+    def create_regex(self, contains: list[str], subdomains: list[str]):
+        return f"(.*({'|'.join(contains)}).*)|((.+\.)?({'|'.join(subdomains)})\..+)"

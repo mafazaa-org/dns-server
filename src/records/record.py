@@ -2,10 +2,18 @@ from __future__ import annotations as _annotations
 
 
 from dnslib import QTYPE, RR
-from dnslib.server import DNSServer as LibDNSServer
 from dnslib.dns import DNSRecord
-from json import dump, load
-from re import match
+from dnslib.server import DNSHandler
+from threading import Lock
+from os import environ
+from sqlite3 import (
+    connect,
+    register_adapter,
+    register_converter,
+    Connection,
+    Cursor,
+    PARSE_DECLTYPES,
+)
 
 try:
     from typing import Literal
@@ -30,36 +38,51 @@ RecordType = Literal[
     "SPF",
 ]
 
+branch = environ["branch"]
+level = environ["level"]
+lock = Lock()
+
+url = f"https://raw.githubusercontent.com/mafazaa-org/dns-db/{branch}/{level}/data.db"
+
 
 class Record:
-    records: list[Record] = []
+    conn: Connection
+    crsr: Cursor
 
-    available = False
     to_string = lambda x: x
-
-    def __init__(self, host):
-        self.host = host
-
-    def match(self, host: str):
-        return match(self.host, host)
+    table_name: str
 
     def sub_match(self, q):
         return self._rtype == QTYPE.SOA and q.qname.matchSuffix(self._rname)
 
-    def get_answer(self, _type: str, host: str, answers: list) -> RR:
+    @classmethod
+    def get_answers(
+        self,
+        reply: DNSRecord,
+        _type: str,
+        host: str,
+        answers: list,
+        handler: DNSHandler,
+    ) -> RR:
         for answer in answers:
-            if answer.type == _type:
-                return answer.getRR(host)
+            if answer.type == _type or answer.type == "CNAME":
+                reply.add_answer(answer.getRR(host))
+
+        return reply
 
     @classmethod
-    def search(cls, reply: DNSRecord, type_name: RecordType, host: str):
-        for record in cls.records:
-            if record.match(host):
-                rr = record.get_answer(type_name, host)
-                if rr:
-                    reply.add_answer(rr)
-                break
-        return reply
+    def query(
+        cls,
+        reply: DNSRecord,
+        type_name: RecordType,
+        host: str,
+        request: DNSRecord,
+        handler: DNSHandler,
+    ):
+        return cls.execute(
+            f"SELECT * FROM {cls.table_name} WHERE host == '{host}'",
+            callback=lambda x: x.fetchone(),
+        )
 
         # # no direct zone so look for an SOA record for a higher level zone
         # for record in Record.records:
@@ -71,25 +94,29 @@ class Record:
         #     return reply
 
     @classmethod
-    def initialize(cls, data: dict):
-        raw_records: list[dict] = data["list"]
-        cls.records = [cls.from_json(x) for x in raw_records]
-        cls.available = True
-
-    @classmethod
-    def from_json(cls, json: dict):
-        return cls(json["host"])
+    def execute(cls, sql: str, parameters=(), callback=lambda x: x.fetchall()):
+        lock.acquire(True)
+        res = callback(cls.crsr.execute(sql, parameters))
+        lock.release()
+        return res
 
     @classmethod
     def insert(cls, record: Record):
         cls.records.append(record)
 
     @classmethod
-    def sort(cls):
-        cls.available = False
-        cls.records.sort(key=cls.to_string)
-        cls.available = True
+    def initialize(cls):
+        cls.conn = connect(
+            "data/data.db", check_same_thread=False, detect_types=PARSE_DECLTYPES
+        )
+        cls.crsr = cls.conn.cursor()
+        register_adapter(bool, int)
+        register_converter("BOOLEAN", lambda v: bool(int(v)))
 
     @classmethod
     def record_host(cls, request: DNSRecord):
-        return request.q.qname.__str__().removesuffix(".").removeprefix("www.")
+        return cls.clean_host(request.q.qname.__str__())
+
+    @classmethod
+    def clean_host(cls, host: str):
+        return host.removesuffix(".")

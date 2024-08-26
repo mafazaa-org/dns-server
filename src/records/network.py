@@ -10,28 +10,22 @@ from ..utils.constants import DEFAULT_PORT, server, PROXY_SERVER_TIMEOUT
 
 
 class Network(Record):
-    file_name = "network"
-    available = True
-
-    def __init__(self, host, answers: list[Answer]):
-        self.answers = answers
-        super().__init__(host)
-
-    def get_answer(self, _type: str) -> RR:
-        return super().get_answer(_type, self.answers)
+    table_name = None
 
     @classmethod
-    def insert(cls, host: str, _type: str, _answer: str):
-        answer = Answer(_type, _answer)
-        super().insert(Network(host, [answer]))
+    def get_answers(
+        cls, reply: DNSRecord, _type: str, host: str, handler: DNSHandler
+    ) -> RR:
+        return super().get_answers(
+            reply,
+            _type,
+            host,
+            cls.answers,
+            handler,
+        )
 
     @classmethod
-    def from_json(cls, json: dict):
-
-        return cls(json["host"], [Answer.from_json(x) for x in json["answers"]])
-
-    @classmethod
-    def search(
+    def query(
         cls,
         reply: DNSRecord,
         type_name: RecordType,
@@ -39,30 +33,29 @@ class Network(Record):
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        return cls.resolve(request, handler)
+        return cls.resolve(request, reply, handler)
 
     @classmethod
-    def resolve(cls, request: DNSRecord, handler: DNSHandler):
+    def resolve(cls, request: DNSRecord, reply: DNSRecord, handler: DNSHandler):
         if handler.protocol == "udp":
             proxy_r = request.send(server, DEFAULT_PORT, timeout=PROXY_SERVER_TIMEOUT)
         else:
             proxy_r = request.send(
                 server, DEFAULT_PORT, tcp=True, timeout=PROXY_SERVER_TIMEOUT
             )
-        reply = DNSRecord.parse(proxy_r)
+        res = DNSRecord.parse(proxy_r)
 
-        cls.insert(reply)
+        # cls.insert(res)
 
-        return reply
+        return res
 
     @classmethod
     def insert(cls, reply: DNSRecord):
-        host: str = reply.a.rname.__str__().rstrip(".")
+        host: str = cls.clean_host(reply.a.rname.__str__())
         _type = QTYPE[reply.q.qtype]
         _answer = reply.a.rdata.__str__()
 
         if _answer in ["146.112.61.106", "::ffff:9270:3d6a"]:
-            Block.insert(host)
-            return reply
-
-        Zone.insert(host, _type, _answer)
+            # Block.insert(host)
+            ...
+        # Zone.insert(host, _type, _answer)

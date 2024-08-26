@@ -1,6 +1,6 @@
 from json import load, dump
-from server.src.records.record import Record, load_records, save_records
-from server.src.records.zone import Zone
+from dns_lists.src.records.record import Record, load_records, save_records
+from dns_lists.src.records.zone import Zone
 
 test_json = "test/local/test_record.json"
 

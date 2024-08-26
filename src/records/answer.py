@@ -28,9 +28,11 @@ TYPE_LOOKUP = {
 
 SERIAL_NO = int((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds())
 
+MAX_TTL = 4294967295
+
 
 class Answer:
-    def __init__(self, _type, _answer, ttl=None) -> None:
+    def __init__(self, _type: RecordType, _answer, ttl=None) -> None:
         self.type = _type
         self.answer = _answer
 
@@ -49,14 +51,9 @@ class Answer:
             else:
                 self.args = _answer
 
-        if ttl:
-            self.ttl = ttl
-            return
-
-        if self._rtype in (QTYPE.NS, QTYPE.SOA):
-            self.ttl = 3600 * 24
-        else:
-            self.ttl = 300
+        self.ttl = (
+            ttl if ttl else 3600 * 24 if self._rtype in (QTYPE.NS, QTYPE.SOA) else 300
+        )
 
     def getRR(self, _rname):
         return RR(
@@ -90,7 +87,3 @@ class Answer:
                 f'Zone {self.host} is invalid, "answer" must be a string or list of strings and ints, got {_answer!r}'
             )
         self._answer = _answer
-
-    @classmethod
-    def from_json(cls, json: dict):
-        return cls(json["type"], json["answer"], json.get("ttl", None))

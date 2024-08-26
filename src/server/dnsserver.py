@@ -3,7 +3,7 @@ from __future__ import annotations as _annotations
 from dnslib.server import DNSServer as LibDNSServer
 from src.server.proxy_resolver import ProxyResolver
 from src.utils.constants import server, DEFAULT_PORT
-from os import environ
+from time import sleep
 
 
 class DnsServer:
@@ -35,3 +35,13 @@ class DnsServer:
         return (self.udp_server and self.udp_server.isAlive()) or (
             self.tcp_server and self.tcp_server.isAlive()
         )
+
+    def serve_forever(self):
+        try:
+            while self.is_running:
+                sleep(1)
+        except KeyboardInterrupt:
+            pass
+        finally:
+            print("stopping DNS server")
+            self.stop()

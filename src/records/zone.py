@@ -1,24 +1,41 @@
-from dnslib import RR
-from .record import Record
-from .answer import Answer
+from dnslib import RR, QTYPE
+from dnslib.dns import DNSRecord
+from dnslib.server import DNSHandler
+from .record import Record, RecordType
+from .answer import Answer, MAX_TTL
+from re import match
+
+
+google_regex = "(w{3}\.)google\..+"
+google_answer = Answer("CNAME", "forcesafesearch.google.com", MAX_TTL)
 
 
 class Zone(Record):
-    file_name = "zones"
-
-    def __init__(self, host, answers: list[Answer]):
-        self.answers = answers
-        super().__init__(host)
-
-    def get_answer(self, _type: str, host) -> RR:
-        return super().get_answer(_type, host, self.answers)
+    table_name = "zoneslist"
 
     @classmethod
-    def insert(cls, host: str, _type: str, _answer: str):
-        answer = Answer(_type, _answer)
-        super().insert(Zone(host, [answer]))
+    def query(
+        cls,
+        reply: DNSRecord,
+        type_name: RecordType,
+        host: str,
+        request: DNSRecord,
+        handler: DNSHandler,
+    ):
+        if match(google_regex, host):
+            reply.add_answer(google_answer.getRR(host))
+            return reply
+        ans = super().query(reply, type_name, host, request, handler)
+        if ans:
+            return cls.get_answers(reply, type_name, ans, handler)
+        return reply
 
     @classmethod
-    def from_json(cls, json: dict):
-
-        return cls(json["host"], [Answer.from_json(x) for x in json["answers"]])
+    def get_answers(
+        cls, reply: DNSRecord, _type: str, host: tuple, handler: DNSHandler
+    ) -> RR:
+        answers = cls.execute(
+            "SELECT type, answer FROM answers WHERE zone_id = ?", (host[0],)
+        )
+        answers = map(lambda x: Answer(QTYPE[x[0]], x[1]), answers)
+        return super().get_answers(reply, _type, host[1], answers, handler)
