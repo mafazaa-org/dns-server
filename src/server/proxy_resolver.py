@@ -3,6 +3,7 @@ from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from src.utils.constants import DEFAULT_PORT, PROXY_SERVER_TIMEOUT
 from .resolve import resolve
+from traceback import print_exc
 
 
 class ProxyResolver:
@@ -18,7 +19,7 @@ class ProxyResolver:
             reply = resolve(request, reply, handler)
         except Exception as e:
             print("exception occured while resolving request")
-            print(e)
+            print_exc()
             reply.header.rcode = getattr(RCODE, "NXDOMAIN")
 
         return reply
