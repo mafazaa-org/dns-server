@@ -97,8 +97,9 @@ class Record:
         return res
 
     @classmethod
-    def insert(cls, record: Record):
-        cls.records.append(record)
+    def insert(cls, host):
+        cls.execute(f"INSERT INTO {cls.table_name} (host) VALUES (?)", (host,))
+        cls.conn.commit()
 
     @classmethod
     def initialize(cls):

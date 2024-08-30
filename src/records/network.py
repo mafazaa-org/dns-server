@@ -45,7 +45,7 @@ class Network(Record):
             )
         res = DNSRecord.parse(proxy_r)
 
-        # cls.insert(res)
+        cls.insert(res)
 
         return res
 
@@ -56,6 +56,4 @@ class Network(Record):
         _answer = reply.a.rdata.__str__()
 
         if _answer in ["146.112.61.106", "::ffff:9270:3d6a"]:
-            # Block.insert(host)
-            ...
-        # Zone.insert(host, _type, _answer)
+            Block.insert(host)
