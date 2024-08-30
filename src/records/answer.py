@@ -30,6 +30,8 @@ SERIAL_NO = int((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds())
 
 MAX_TTL = 4294967295
 
+DEFAULT_TTL = 60 * 60
+
 
 class Answer:
     def __init__(self, _type: RecordType, _answer, ttl=None) -> None:
@@ -52,7 +54,9 @@ class Answer:
                 self.args = _answer
 
         self.ttl = (
-            ttl if ttl else 3600 * 24 if self._rtype in (QTYPE.NS, QTYPE.SOA) else 300
+            ttl
+            if ttl
+            else 3600 * 24 if self._rtype in (QTYPE.NS, QTYPE.SOA) else DEFAULT_TTL
         )
 
     def getRR(self, _rname):

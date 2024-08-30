@@ -38,11 +38,7 @@ RecordType = Literal[
     "SPF",
 ]
 
-branch = environ["branch"]
-level = environ["level"]
 lock = Lock()
-
-url = f"https://raw.githubusercontent.com/mafazaa-org/dns-db/{branch}/{level}/data.db"
 
 
 class Record:
@@ -63,10 +59,11 @@ class Record:
         host: str,
         answers: list,
         handler: DNSHandler,
+        add_function: function = lambda reply, answer: reply.add_answer(answer),
     ) -> RR:
         for answer in answers:
             if answer.type == _type or answer.type == "CNAME":
-                reply.add_answer(answer.getRR(host))
+                add_function(reply, answer.getRR(host))
 
         return reply
 

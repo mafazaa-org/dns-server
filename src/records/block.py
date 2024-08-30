@@ -11,6 +11,9 @@ class Block(Record):
     answers = [
         Answer("A", "0.0.0.0", MAX_TTL),
         Answer("AAAA", "::", MAX_TTL),
+        Answer("NS", "0.0.0.0", MAX_TTL),
+        Answer("MX", "0.0.0.0", MAX_TTL),
+        Answer("TXT", "None", MAX_TTL),
     ]
     regex: str
 
@@ -36,7 +39,14 @@ class Block(Record):
     def get_answers(
         cls, reply: DNSRecord, _type: str, host: str, handler: DNSHandler
     ) -> RR:
-        reply = super().get_answers(reply, _type, host, Block.answers, handler)
+        reply = super().get_answers(
+            reply,
+            _type,
+            host,
+            Block.answers,
+            handler,
+            lambda reply, answer: reply.add_answer(answer),
+        )
         if not reply.rr:
             reply.add_answer(Answer("CNAME", "block.opendns.com", MAX_TTL).getRR(host))
         return reply

@@ -6,7 +6,7 @@ from .answer import Answer
 from dnslib import DNSRecord, QTYPE, RCODE
 from dnslib.server import DNSHandler
 from socket import timeout
-from ..utils.constants import DEFAULT_PORT, server, PROXY_SERVER_TIMEOUT
+from ..utils.constants import DEFAULT_PORT, PROXY_SERVER_TIMEOUT, server
 
 
 class Network(Record):
