@@ -3,6 +3,7 @@ from dnslib.server import DNSHandler
 from src.records.record import Record
 from src.records.zone import Zone
 from src.records.block import Block
+from src.records.cache import Cache
 from src.records.network import Network
 
 
@@ -12,7 +13,7 @@ def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler):
     host = Record.record_host(request)
 
     # for recordclass in recordclasses
-    for RecordClass in [Zone, Block, Network]:
+    for RecordClass in [Cache, Zone, Block, Network]:
 
         # query
         reply: DNSRecord = RecordClass.query(reply, type_name, host, request, handler)

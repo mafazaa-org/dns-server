@@ -1,9 +1,8 @@
 from dnslib import RR
 from .record import Record, RecordType
 from .block import Block
-from .zone import Zone
-from .answer import Answer
-from dnslib import DNSRecord, QTYPE, RCODE
+from .cache import Cache
+from dnslib import DNSRecord, DNSError
 from dnslib.server import DNSHandler
 from socket import timeout
 from ..utils.constants import DEFAULT_PORT, PROXY_SERVER_TIMEOUT, server
@@ -51,9 +50,13 @@ class Network(Record):
 
     @classmethod
     def insert(cls, reply: DNSRecord):
-        host: str = cls.clean_host(reply.a.rname.__str__())
-        _type = QTYPE[reply.q.qtype]
-        _answer = reply.a.rdata.__str__()
+        try:
+            host: str = cls.clean_host(reply.a.rname.__str__())
+        except DNSError:
+            return
+        answer = reply.a.rdata.__str__()
 
-        if _answer in ["146.112.61.106", "::ffff:9270:3d6a"]:
+        if answer in ["146.112.61.106", "::ffff:9270:3d6a"]:
             Block.insert(host)
+
+        Cache.insert(host, reply.q.qtype, answer, reply.a.ttl)
