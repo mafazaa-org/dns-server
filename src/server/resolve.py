@@ -16,7 +16,7 @@ def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler):
 
         # query
         reply: DNSRecord = RecordClass.query(reply, type_name, host, request, handler)
-        if not reply.rr and not reply.ar:
+        if not reply.rr:
             continue
 
         for rr in reply.rr:

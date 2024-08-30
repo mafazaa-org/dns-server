@@ -59,11 +59,10 @@ class Record:
         host: str,
         answers: list,
         handler: DNSHandler,
-        add_function: function = lambda reply, answer: reply.add_answer(answer),
     ) -> RR:
         for answer in answers:
             if answer.type == _type or answer.type == "CNAME":
-                add_function(reply, answer.getRR(host))
+                reply.add_answer(answer.getRR(host))
 
         return reply
 

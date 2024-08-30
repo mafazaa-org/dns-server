@@ -45,7 +45,6 @@ class Block(Record):
             host,
             Block.answers,
             handler,
-            lambda reply, answer: reply.add_answer(answer),
         )
         if not reply.rr:
             reply.add_answer(Answer("CNAME", "block.opendns.com", MAX_TTL).getRR(host))
