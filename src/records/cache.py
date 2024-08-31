@@ -9,32 +9,24 @@ from threading import Timer
 
 class Cache(Record):
     table_name = "cachelist"
-    table2_name = "cache_answers"
     cleaner: Timer
 
     @classmethod
     def initialize(cls):
         super().initialize()
-        # creating
-        q = cls.execute(
-            "SELECT sql FROM sqlite_master WHERE type='table' AND name='zoneslist'",
-            callback=lambda x: x.fetchone(),
-        )[0].replace("CREATE TABLE", "CREATE TABLE IF NOT EXISTS")
-        cls.execute(q.replace("zoneslist", cls.table_name))
+        cls.execute(f"DROP TABLE IF EXISTS {cls.table_name}")
 
+        # creating cachelist table
         q = cls.execute(
             "SELECT sql FROM sqlite_master WHERE type='table' AND name='answers'",
             callback=lambda x: x.fetchone(),
         )[0].replace("CREATE TABLE", "CREATE TABLE IF NOT EXISTS")
         cls.execute(
-            q.replace("answers", cls.table2_name).replace(
-                "TEXT NOT NULL",
-                "TEXT NOT NULL,\n expire INTEGER NOT NULL",
+            q.replace("answers", cls.table_name).replace(
+                "zone_id INTEGER",
+                "host TEXT NOT NULL,\n expire INTEGER",
             )
         )
-
-        cls.execute(f"DELETE FROM {cls.table_name}")
-        cls.execute(f"DELETE FROM {cls.table2_name}")
         cls.conn.commit()
         cls.run_cleaner()
 
@@ -43,7 +35,7 @@ class Cache(Record):
         cls.cleaner = Timer(60.0, cls.run_cleaner)
         cls.cleaner.start()
         cls.execute(
-            f"DELETE FROM {cls.table2_name} WHERE expire <= ?",
+            f"DELETE FROM {cls.table_name} WHERE expire <= ?",
             (int(datetime.now().timestamp()),),
         )
         cls.conn.commit()
@@ -57,36 +49,37 @@ class Cache(Record):
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        ans = super().query(reply, type_name, host, request, handler)
-        if ans:
+
+        ans: list[tuple] = cls.execute(
+            f"SELECT host, type, answer, expire FROM {cls.table_name} WHERE host=?",
+            (host,),
+        )
+        if len(ans) > 0:
             return cls.get_answers(reply, type_name, ans, handler)
         return reply
 
     @classmethod
     def get_answers(
-        cls, reply: DNSRecord, _type: str, host: tuple, handler: DNSHandler
+        cls,
+        reply: DNSRecord,
+        _type: str,
+        answers_list: list[tuple],
+        handler: DNSHandler,
     ) -> RR:
-        answers = cls.execute(
-            f"SELECT type, answer, expire FROM {cls.table2_name} WHERE zone_id = ?",
-            (host[0],),
-        )
         now = datetime.now().timestamp()
-        answers = map(lambda x: Answer(QTYPE[x[0]], x[1], int(x[2] - now)), answers)
-        return super().get_answers(reply, _type, host[1], answers, handler)
+        answers = map(
+            lambda x: Answer(QTYPE[x[1]], x[2], int(x[3] - now)), answers_list
+        )
+        return super().get_answers(reply, _type, answers_list[0][0], answers, handler)
 
     @classmethod
     def insert(cls, host, _type: int, answer: str, ttl: int):
-        cls.execute(f"INSERT OR IGNORE INTO {cls.table_name}(host) VALUES (?)", (host,))
-        id = cls.execute(
-            f"SELECT id FROM {cls.table_name} WHERE host=?",
-            (host,),
-            lambda x: x.fetchone(),
-        )[0]
 
         expire = int((datetime.now() + timedelta(seconds=ttl)).timestamp())
 
         cls.execute(
-            f"INSERT INTO {cls.table2_name}(zone_id, type, answer, expire) VALUES(?, ?, ?, ?)",
-            (id, _type, answer, expire),
+            f"INSERT OR IGNORE INTO {cls.table_name}(host, type, answer, expire) VALUES (?, ?, ?, ?)",
+            (host, _type, answer, expire),
         )
+
         cls.conn.commit()
