@@ -60,4 +60,10 @@ class Network(Record):
             Block.insert(host)
             return
 
-        Cache.insert(host, reply.q.qtype, answer, reply.a.ttl)
+        for ans in reply.rr:
+            Cache.insert(
+                cls.clean_host(ans.rname.__str__()),
+                ans.rtype,
+                ans.rdata.__str__(),
+                ans.ttl,
+            )
