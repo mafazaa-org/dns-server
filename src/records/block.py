@@ -4,6 +4,7 @@ from dnslib.server import DNSHandler
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from re import match
+from sqlite3 import register_adapter, register_converter
 
 
 class Block(Record):
@@ -20,6 +21,8 @@ class Block(Record):
     @classmethod
     def initialize(cls):
         super().initialize()
+        register_adapter(bool, int)
+        register_converter("BOOLEAN", lambda v: bool(int(v)))
         contains = cls.execute(
             "SELECT * FROM blockregex WHERE is_subdomain == ?",
             (False,),

@@ -4,15 +4,18 @@ from dnslib.server import DNSHandler
 from .record import Record, RecordType
 from .answer import Answer
 from datetime import datetime, timedelta
+from threading import Timer
 
 
 class Cache(Record):
     table_name = "cachelist"
     table2_name = "cache_answers"
+    cleaner: Timer
 
     @classmethod
     def initialize(cls):
         super().initialize()
+        # creating
         q = cls.execute(
             "SELECT sql FROM sqlite_master WHERE type='table' AND name='zoneslist'",
             callback=lambda x: x.fetchone(),
@@ -29,6 +32,21 @@ class Cache(Record):
                 "TEXT NOT NULL,\n expire INTEGER NOT NULL",
             )
         )
+
+        cls.execute(f"DELETE FROM {cls.table_name}")
+        cls.execute(f"DELETE FROM {cls.table2_name}")
+        cls.conn.commit()
+        cls.run_cleaner()
+
+    @classmethod
+    def run_cleaner(cls):
+        cls.cleaner = Timer(60.0, cls.run_cleaner)
+        cls.cleaner.start()
+        cls.execute(
+            f"DELETE FROM {cls.table2_name} WHERE expire <= ?",
+            (int(datetime.now().timestamp()),),
+        )
+        cls.conn.commit()
 
     @classmethod
     def query(

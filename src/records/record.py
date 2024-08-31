@@ -107,8 +107,6 @@ class Record:
             "data/data.db", check_same_thread=False, detect_types=PARSE_DECLTYPES
         )
         cls.crsr = cls.conn.cursor()
-        register_adapter(bool, int)
-        register_converter("BOOLEAN", lambda v: bool(int(v)))
 
     @classmethod
     def record_host(cls, request: DNSRecord):

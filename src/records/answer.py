@@ -30,7 +30,7 @@ SERIAL_NO = int((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds())
 
 MAX_TTL = 4294967295
 
-DEFAULT_TTL = 60 * 60
+DEFAULT_TTL = 60 * 1
 
 
 class Answer:
@@ -55,7 +55,7 @@ class Answer:
 
         self.ttl = (
             ttl
-            if ttl
+            if ttl and ttl > 0
             else 3600 * 24 if self._rtype in (QTYPE.NS, QTYPE.SOA) else DEFAULT_TTL
         )
 

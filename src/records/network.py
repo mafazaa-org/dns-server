@@ -58,5 +58,6 @@ class Network(Record):
 
         if answer in ["146.112.61.106", "::ffff:9270:3d6a"]:
             Block.insert(host)
+            return
 
         Cache.insert(host, reply.q.qtype, answer, reply.a.ttl)
