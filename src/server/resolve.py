@@ -7,21 +7,24 @@ from src.records.cache import Cache
 from src.records.network import Network
 
 
-def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler):
+def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_time=True):
     # get type name, reply and clean host
-    type_name = QTYPE[request.q.qtype]
+    _type = request.q.qtype
     host = Record.record_host(request)
 
     # for recordclass in recordclasses
     for RecordClass in [Cache, Zone, Block, Network]:
 
         # query
-        reply: DNSRecord = RecordClass.query(reply, type_name, host, request, handler)
+        reply: DNSRecord = RecordClass.query(reply, _type, host, request, handler)
         if not reply.rr:
             continue
 
+        if not first_time:
+            continue
+
         for rr in reply.rr:
-            if rr.rtype != 5 and type_name in ["A", "AAAA"]:
+            if rr.rtype != 5 and _type in [QTYPE.A, QTYPE.AAAA]:
                 continue
             try:
                 q = DNSRecord(
@@ -31,11 +34,7 @@ def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler):
                 print("\n\n\nthere was an error while encoding\n\n\n")
                 return reply
             cname_reply = q.reply()
-            cname_reply = resolve(
-                q,
-                cname_reply,
-                handler,
-            )
+            cname_reply = resolve(q, cname_reply, handler, first_time=False)
             reply.rr.extend(cname_reply.rr)
 
         return reply

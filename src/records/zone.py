@@ -7,7 +7,7 @@ from re import match
 
 
 google_regex = "(w{3}\.)google\..+"
-google_answer = Answer("CNAME", "forcesafesearch.google.com", MAX_TTL)
+google_answer = Answer(5, "forcesafesearch.google.com", MAX_TTL)
 
 
 class Zone(Record):
@@ -37,5 +37,5 @@ class Zone(Record):
         answers = cls.execute(
             "SELECT type, answer FROM answers WHERE zone_id = ?", (host[0],)
         )
-        answers = map(lambda x: Answer(QTYPE[x[0]], x[1]), answers)
+        answers = map(lambda x: Answer(x[0], x[1]), answers)
         return super().get_answers(reply, _type, host[1], answers, handler)

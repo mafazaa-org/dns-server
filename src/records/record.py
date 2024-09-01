@@ -22,22 +22,22 @@ except ImportError:
 
 COMMIT_INTERVALS = 10
 
-RecordType = Literal[
-    "A",
-    "AAAA",
-    "CAA",
-    "CNAME",
-    "DNSKEY",
-    "MX",
-    "NAPTR",
-    "NS",
-    "PTR",
-    "RRSIG",
-    "SOA",
-    "SRV",
-    "TXT",
-    "SPF",
-]
+RecordType = (
+    QTYPE.A
+    | QTYPE.AAAA
+    | QTYPE.CAA
+    | QTYPE.CNAME
+    | QTYPE.DNSKEY
+    | QTYPE.MX
+    | QTYPE.NAPTR
+    | QTYPE.NS
+    | QTYPE.PTR
+    | QTYPE.RRSIG
+    | QTYPE.SOA
+    | QTYPE.SRV
+    | QTYPE.TXT
+    | QTYPE.SPF
+)
 
 lock = Lock()
 
@@ -57,13 +57,13 @@ class Record:
     def get_answers(
         self,
         reply: DNSRecord,
-        _type: str,
+        _type: RecordType,
         host: str,
         answers: list,
         handler: DNSHandler,
     ) -> RR:
         for answer in answers:
-            if answer.type == _type or answer.type == "CNAME":
+            if answer._rtype == _type or answer._rtype == QTYPE.CNAME:
                 reply.add_answer(answer.getRR(host))
 
         return reply
@@ -72,7 +72,7 @@ class Record:
     def query(
         cls,
         reply: DNSRecord,
-        type_name: RecordType,
+        _type: RecordType,
         host: str,
         request: DNSRecord,
         handler: DNSHandler,

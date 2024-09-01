@@ -7,23 +7,20 @@ from textwrap import wrap
 from dnslib import QTYPE, RR, dns
 from .record import RecordType
 
-RECORD_TYPES = RecordType.__args__
-
 TYPE_LOOKUP = {
-    "A": (dns.A, QTYPE.A),
-    "AAAA": (dns.AAAA, QTYPE.AAAA),
-    "CAA": (dns.CAA, QTYPE.CAA),
-    "CNAME": (dns.CNAME, QTYPE.CNAME),
-    "DNSKEY": (dns.DNSKEY, QTYPE.DNSKEY),
-    "MX": (dns.MX, QTYPE.MX),
-    "NAPTR": (dns.NAPTR, QTYPE.NAPTR),
-    "NS": (dns.NS, QTYPE.NS),
-    "PTR": (dns.PTR, QTYPE.PTR),
-    "RRSIG": (dns.RRSIG, QTYPE.RRSIG),
-    "SOA": (dns.SOA, QTYPE.SOA),
-    "SRV": (dns.SRV, QTYPE.SRV),
-    "TXT": (dns.TXT, QTYPE.TXT),
-    "SPF": (dns.TXT, QTYPE.TXT),
+    QTYPE.A: dns.A,
+    QTYPE.AAAA: dns.AAAA,
+    QTYPE.CAA: dns.CAA,
+    QTYPE.CNAME: dns.CNAME,
+    QTYPE.DNSKEY: dns.DNSKEY,
+    QTYPE.MX: dns.MX,
+    QTYPE.NAPTR: dns.NAPTR,
+    QTYPE.NS: dns.NS,
+    QTYPE.PTR: dns.PTR,
+    QTYPE.RRSIG: dns.RRSIG,
+    QTYPE.SOA: dns.SOA,
+    QTYPE.SRV: dns.SRV,
+    QTYPE.TXT: dns.TXT,
 }
 
 SERIAL_NO = int((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds())
@@ -35,10 +32,8 @@ DEFAULT_TTL = 60 * 1
 
 class Answer:
     def __init__(self, _type: RecordType, _answer, ttl=None) -> None:
-        self.type = _type
         self.answer = _answer
-
-        self.rd_cls, self._rtype = TYPE_LOOKUP[_type]
+        self._rtype = _type
 
         self.args: list
         if isinstance(_answer, str):
@@ -61,20 +56,11 @@ class Answer:
 
     def getRR(self, _rname):
         return RR(
-            rname=_rname, rtype=self._rtype, rdata=self.rd_cls(*self.args), ttl=self.ttl
+            rname=_rname,
+            rtype=self._rtype,
+            rdata=TYPE_LOOKUP[self._rtype](*self.args),
+            ttl=self.ttl,
         )
-
-    @property
-    def type(self):
-        return self._type
-
-    @type.setter
-    def type(self, _type: str):
-        if _type not in RECORD_TYPES:
-            raise ValueError(
-                f'Zone {self.host} is invalid, "type" must be one of {", ".join(RECORD_TYPES)}, got {type!r}'
-            )
-        self._type = _type
 
     @property
     def answer(self):

@@ -1,4 +1,4 @@
-from dnslib import RR
+from dnslib import RR, QTYPE
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from .record import Record, RecordType
@@ -6,15 +6,32 @@ from .answer import Answer, MAX_TTL
 from re import match
 from sqlite3 import register_adapter, register_converter
 
+TYPE_LOOKUP = {
+    "A": QTYPE.A,
+    "AAAA": QTYPE.AAAA,
+    "CAA": QTYPE.CAA,
+    "CNAME": QTYPE.CNAME,
+    "DNSKEY": QTYPE.DNSKEY,
+    "MX": QTYPE.MX,
+    "NAPTR": QTYPE.NAPTR,
+    "NS": QTYPE.NS,
+    "PTR": QTYPE.PTR,
+    "RRSIG": QTYPE.RRSIG,
+    "SOA": QTYPE.SOA,
+    "SRV": QTYPE.SRV,
+    "TXT": QTYPE.TXT,
+    "SPF": QTYPE.TXT,
+}
+
 
 class Block(Record):
     table_name = "blocklist"
     answers = [
-        Answer("A", "0.0.0.0", MAX_TTL),
-        Answer("AAAA", "::", MAX_TTL),
-        Answer("NS", "0.0.0.0", MAX_TTL),
-        Answer("MX", "0.0.0.0", MAX_TTL),
-        Answer("TXT", "None", MAX_TTL),
+        Answer(TYPE_LOOKUP["A"], "0.0.0.0", MAX_TTL),
+        Answer(TYPE_LOOKUP["AAAA"], "::", MAX_TTL),
+        Answer(TYPE_LOOKUP["NS"], "0.0.0.0", MAX_TTL),
+        Answer(TYPE_LOOKUP["MX"], "0.0.0.0", MAX_TTL),
+        Answer(TYPE_LOOKUP["TXT"], "None", MAX_TTL),
     ]
     regex: str
 

@@ -58,7 +58,10 @@ class Cache(Record):
             (host,),
         )
         if len(ans) > 0:
-            return cls.get_answers(reply, type_name, ans, handler)
+            try:
+                return cls.get_answers(reply, type_name, ans, handler)
+            except BaseException as e:
+                print(f"error with host {host}\n{e}")
         return reply
 
     @classmethod
@@ -70,9 +73,7 @@ class Cache(Record):
         handler: DNSHandler,
     ) -> RR:
         now = datetime.now().timestamp()
-        answers = map(
-            lambda x: Answer(QTYPE[x[1]], x[2], int(x[3] - now)), answers_list
-        )
+        answers = map(lambda x: Answer(x[1], x[2], int(x[3] - now)), answers_list)
         return super().get_answers(reply, _type, answers_list[0][0], answers, handler)
 
     @classmethod
