@@ -3,6 +3,7 @@ from __future__ import annotations as _annotations
 from dnslib.server import DNSServer as LibDNSServer
 from src.server.proxy_resolver import ProxyResolver
 from src.records.cache import Cache
+from src.records.block import Block
 from src.utils.constants import DEFAULT_PORT, server
 from time import sleep
 from sys import argv
@@ -47,4 +48,6 @@ class DnsServer:
         finally:
             print("stopping DNS server")
             Cache.cleaner.cancel()
+            Cache.commiter.cancel()
+            Block.commiter.cancel()
             self.stop()

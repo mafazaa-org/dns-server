@@ -37,6 +37,7 @@ class Block(Record):
         cls.regex = cls.create_regex(
             map(lambda x: x[0], contains), map(lambda x: x[0], subdomains)
         )
+        cls.run_commiter()
 
     @classmethod
     def get_answers(

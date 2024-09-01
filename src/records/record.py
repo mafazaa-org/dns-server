@@ -8,18 +8,19 @@ from threading import Lock
 from os import environ
 from sqlite3 import (
     connect,
-    register_adapter,
-    register_converter,
     Connection,
     Cursor,
     PARSE_DECLTYPES,
 )
+from threading import Timer
 
 try:
     from typing import Literal
 except ImportError:
     from typing_extensions import Literal
 
+
+COMMIT_INTERVALS = 10
 
 RecordType = Literal[
     "A",
@@ -44,6 +45,7 @@ lock = Lock()
 class Record:
     conn: Connection
     crsr: Cursor
+    commiter: Timer
 
     to_string = lambda x: x
     table_name: str
@@ -99,14 +101,23 @@ class Record:
     @classmethod
     def insert(cls, host):
         cls.execute(f"INSERT INTO {cls.table_name} (host) VALUES (?)", (host,))
-        cls.conn.commit()
 
     @classmethod
-    def initialize(cls):
+    def initialize(cls, index=True):
         cls.conn = connect(
             "data/data.db", check_same_thread=False, detect_types=PARSE_DECLTYPES
         )
         cls.crsr = cls.conn.cursor()
+        if index:
+            cls.execute(
+                f"CREATE INDEX IF NOT EXISTS hosts_{cls.table_name} ON {cls.table_name} (host);"
+            )
+
+    @classmethod
+    def run_commiter(cls):
+        cls.commiter = Timer(5, cls.run_commiter)
+        cls.commiter.start()
+        cls.conn.commit()
 
     @classmethod
     def record_host(cls, request: DNSRecord):

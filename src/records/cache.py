@@ -13,7 +13,7 @@ class Cache(Record):
 
     @classmethod
     def initialize(cls):
-        super().initialize()
+        super().initialize(False)
         cls.execute(f"DROP TABLE IF EXISTS {cls.table_name}")
 
         # creating cachelist table
@@ -27,18 +27,21 @@ class Cache(Record):
                 "host TEXT NOT NULL,\n expire INTEGER",
             )
         )
-        cls.conn.commit()
+        cls.execute("CREATE INDEX IF NOT EXISTS hosts_cachelist ON cachelist (host);")
+        cls.execute(
+            "CREATE INDEX IF NOT EXISTS expire_cachelist ON cachelist (expire);"
+        )
+        cls.run_commiter()
         cls.run_cleaner()
 
     @classmethod
     def run_cleaner(cls):
-        cls.cleaner = Timer(60.0, cls.run_cleaner)
+        cls.cleaner = Timer(60, cls.run_cleaner)
         cls.cleaner.start()
         cls.execute(
             f"DELETE FROM {cls.table_name} WHERE expire <= ?",
             (int(datetime.now().timestamp()),),
         )
-        cls.conn.commit()
 
     @classmethod
     def query(
@@ -81,5 +84,3 @@ class Cache(Record):
             f"INSERT OR IGNORE INTO {cls.table_name}(host, type, answer, expire) VALUES (?, ?, ?, ?)",
             (host, _type, answer, expire),
         )
-
-        cls.conn.commit()
