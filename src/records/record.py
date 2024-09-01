@@ -5,7 +5,6 @@ from dnslib import QTYPE, RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from threading import Lock
-from os import environ
 from sqlite3 import (
     connect,
     Connection,
