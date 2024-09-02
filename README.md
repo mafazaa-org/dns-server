@@ -4,43 +4,19 @@ A server for blocking adult content, ads, music, movies...etc.
 
 ## Install
 
-### Setup on Ubuntu
+### setup
 
-first clone the repository using the following command
+first, see the [dns-init](https://github.com/mafazaa-org/dns-init) repository to setup the server
 
-```shell
-git clone -b primary https://github.com/ahmed-elbehairy7/dns
-```
+the `define.sh` script should automaticly clone all dns-server repos to the server, if it didn't for some reason, run the `update.sh` script from the dns-init repository manually
 
-the branch argument for choosing between primary server and secondary server, this automaticly assign upstreams to primary and secondary opendns servers! also, the update.sh script correctly fetch from primary of secondary branch
+### ip confirmation
 
-First of all, you have to add the execute permission to files by the following command
+second, make sure to confirm the ip address of the server you are using, for more details on how to do it, check the [dns-ip-confirm](https://github.com/mafazaa-org/dns-ip-confirm) repository on how to do that programaticly
 
-```shell
-chmod +x *
-```
+> this step runs only once if you're using static ip addresses
 
-then run the freePort.sh file to make sure you free port 53 from the systemd-r, this script should shutdown the server, so be ready for that
-
-```shell
-./freePort.sh
-```
-
-If you are not using opendns then skip this step, if you do, make sure you completed [content filtering setup](#content-filtering)
-
-```shell
-./confirmIp.sh
-
-./cleanConfirmIp.sh
-```
-
-The last step to setup your dns server is to run this command to install dependencies and prepare the server for running the server script
-
-```shell
-./prepare.sh
-
-./cleanPrepare.sh
-```
+### run the server
 
 Finally: to run the server, run the following command, this should run the server in a tmux session, if you want to check on it you can run `tmux attach`. to detach from tmux without losing the running server press `ctrl + B` then `release` then press `D`
 
@@ -48,13 +24,13 @@ Finally: to run the server, run the following command, this should run the serve
 ./run.sh
 ```
 
+### monitoring
+
+monitoring the server from the outside is a must, and we also offer monitoring from the inside of the server, the [dns-check](https://github.com/mafazaa-org/dns-check) repository contains the scripts and logic responsible for monitoring the server from the inside and run the server automaticly if the server caught offline
+
 ### Updating
 
-The script updateDev.bat is for updating primary and secondary branches from dev so don't come close to it unless you need to! the script you're looking for is the `update.sh` script
-
-```shell
-./update.sh
-```
+if you used the dns-init scripts a crontab job should be automaticly added to update the server every certain period of time
 
 ### Content filtering
 
