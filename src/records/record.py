@@ -36,6 +36,7 @@ RecordType = (
     | QTYPE.SRV
     | QTYPE.TXT
     | QTYPE.SPF
+    | QTYPE.HTTPS
 )
 
 lock = Lock()

@@ -21,6 +21,7 @@ TYPE_LOOKUP = {
     QTYPE.SOA: dns.SOA,
     QTYPE.SRV: dns.SRV,
     QTYPE.TXT: dns.TXT,
+    QTYPE.HTTPS: dns.HTTPS,
 }
 
 SERIAL_NO = int((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds())
