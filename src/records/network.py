@@ -26,15 +26,22 @@ class Network(Record):
     def query(
         cls,
         reply: DNSRecord,
-        type_name: RecordType,
+        _type: RecordType,
         host: str,
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        return cls.resolve(request, reply, handler)
+        return cls.resolve(request, reply, host, _type, handler)
 
     @classmethod
-    def resolve(cls, request: DNSRecord, reply: DNSRecord, handler: DNSHandler):
+    def resolve(
+        cls,
+        request: DNSRecord,
+        reply: DNSRecord,
+        host: str,
+        _type: RecordType,
+        handler: DNSHandler,
+    ):
         try:
             if handler.protocol == "udp":
                 proxy_r = request.send(
@@ -46,27 +53,17 @@ class Network(Record):
                 )
 
             res = DNSRecord.parse(proxy_r)
-            cls.insert(res)
+            cls.insert(res, host, _type)
             return res
         except:
             ...
 
     @classmethod
-    def insert(cls, reply: DNSRecord):
-        try:
-            host: str = cls.clean_host(reply.a.rname.__str__())
-        except DNSError:
-            return
+    def insert(cls, reply: DNSRecord, host: str, _type: RecordType):
         answer = reply.a.rdata.__str__()
 
         if answer in ["146.112.61.106", "::ffff:9270:3d6a"]:
             Block.insert(host)
             return
 
-        for ans in reply.rr:
-            Cache.insert(
-                cls.clean_host(ans.rname.__str__()),
-                ans.rtype,
-                ans.rdata.__str__(),
-                ans.ttl,
-            )
+        Cache.insert(host, _type, reply.rr)
