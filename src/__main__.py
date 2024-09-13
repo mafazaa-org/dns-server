@@ -8,9 +8,9 @@ def main():
 
     server = DnsServer()
 
+    Cache.initialize()
     Zone.initialize()
     Block.initialize()
-    Cache.initialize()
 
     server.start()
 

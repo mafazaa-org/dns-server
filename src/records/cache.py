@@ -9,7 +9,7 @@ class Cache(Record):
     @classmethod
     def insert(cls, host: str, _type: RecordType, rr):
         main_key = f"{host}:{_type}"
-        ttl = 0
+        ttl = rr[0].ttl
         answers = []
         for ans in rr:
             answer = ans.rdata.__str__()
@@ -22,6 +22,5 @@ class Cache(Record):
             cls.r.lpush(key, answer)
             cls.r.expire(key, min(cls.r.ttl(key), ans.ttl))
 
-        main_key = f"{host}:{_type}"
         cls.r.lpush(main_key, *answers)
         cls.r.expire(main_key, ttl)

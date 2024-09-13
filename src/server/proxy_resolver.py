@@ -17,9 +17,9 @@ class ProxyResolver:
         try:
             reply = resolve(request, reply, handler)
         except Exception:
-            # print("\n\nexception occured while resolving request\n\n")
-            # print_exc()
-            # print("\n\nend of exception\n\n")
+            print("\n\nexception occured while resolving request\n\n")
+            print_exc()
+            print("\n\nend of exception\n\n")
             reply.header.rcode = getattr(RCODE, "NXDOMAIN")
 
         return reply
