@@ -1,9 +1,7 @@
-from dnslib import RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from .record import Record, RecordType
 from .answer import Answer
-from datetime import datetime
 
 
 class Cache(Record):
@@ -23,12 +21,10 @@ class Cache(Record):
     ):
         key = f"{host}:{_type}"
         ans = cls.r.lrange(key, 0, -1)
-        
-        print(ans)
 
         if len(ans) > 0:
             ttl = cls.r.ttl(key)
-            answers = map( lambda x: Answer(_type, x, ttl) ,ans)
+            answers = map(lambda x: Answer(_type, x, ttl), ans)
             try:
                 return cls.get_answers(reply, _type, host, answers, handler)
             except BaseException as e:
@@ -36,6 +32,8 @@ class Cache(Record):
         return reply
 
     @classmethod
-    def insert(cls, host, _type: int, answer: str, ttl: int):
+    def insert(cls, host, _type: int, answers: list, ttl: int):
 
-        ...
+        key = f"{host}:{_type}"
+        cls.r.lpush(key, *answers)
+        cls.r.expire(key, ttl)
