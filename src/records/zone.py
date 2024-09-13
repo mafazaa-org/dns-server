@@ -1,4 +1,3 @@
-from dnslib import RR, QTYPE
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from .record import Record, RecordType

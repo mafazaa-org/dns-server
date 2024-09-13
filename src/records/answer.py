@@ -5,7 +5,7 @@ from datetime import datetime
 from textwrap import wrap
 
 from dnslib import QTYPE, RR, dns
-from .record import RecordType
+from .record_type import RecordType
 
 TYPE_LOOKUP = {
     QTYPE.A: dns.A,

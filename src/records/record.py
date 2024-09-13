@@ -5,6 +5,8 @@ from dnslib import QTYPE, RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from redis import Redis
+from .record_type import RecordType
+from .answer import Answer
 
 try:
     from typing import Literal
@@ -12,25 +14,7 @@ except ImportError:
     from typing_extensions import Literal
 
 
-COMMIT_INTERVALS = 10
-
-RecordType = (
-    QTYPE.A
-    | QTYPE.AAAA
-    | QTYPE.CAA
-    | QTYPE.CNAME
-    | QTYPE.DNSKEY
-    | QTYPE.MX
-    | QTYPE.NAPTR
-    | QTYPE.NS
-    | QTYPE.PTR
-    | QTYPE.RRSIG
-    | QTYPE.SOA
-    | QTYPE.SRV
-    | QTYPE.TXT
-    | QTYPE.SPF
-    | QTYPE.HTTPS
-)
+COMMIT_INTERVALS = 1
 
 
 class Record:
@@ -66,7 +50,17 @@ class Record:
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        ...
+        key = f"{host}:{_type}"
+        ans = cls.r.lrange(key, 0, -1)
+
+        if len(ans) > 0:
+            ttl = cls.r.ttl(key)
+            answers = map(lambda x: Answer(_type, x, ttl), ans)
+            try:
+                return cls.get_answers(reply, _type, host, answers, handler)
+            except BaseException as e:
+                print(f"error with host {host}\n{e}")
+        return reply
 
         # # no direct zone so look for an SOA record for a higher level zone
         # for record in Record.records:
@@ -79,6 +73,7 @@ class Record:
 
     @classmethod
     def insert(cls, host): ...
+
     @classmethod
     def initialize(cls):
         cls.r = Redis(cls.db_host, port=cls.db_port, decode_responses=True)

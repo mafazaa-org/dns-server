@@ -11,27 +11,6 @@ class Cache(Record):
         super().initialize()
 
     @classmethod
-    def query(
-        cls,
-        reply: DNSRecord,
-        _type: RecordType,
-        host: str,
-        request: DNSRecord,
-        handler: DNSHandler,
-    ):
-        key = f"{host}:{_type}"
-        ans = cls.r.lrange(key, 0, -1)
-
-        if len(ans) > 0:
-            ttl = cls.r.ttl(key)
-            answers = map(lambda x: Answer(_type, x, ttl), ans)
-            try:
-                return cls.get_answers(reply, _type, host, answers, handler)
-            except BaseException as e:
-                print(f"error with host {host}\n{e}")
-        return reply
-
-    @classmethod
     def insert(cls, host, _type: int, answers: list, ttl: int):
 
         key = f"{host}:{_type}"
