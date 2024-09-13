@@ -33,8 +33,8 @@ DEFAULT_TTL = 60 * 1
 
 class Answer:
     def __init__(self, _type: RecordType, _answer, ttl=None) -> None:
-        self.answer = _answer
         self._rtype = _type
+        self.answer = _answer
 
         self.args: list
         if isinstance(_answer, str):
@@ -70,11 +70,11 @@ class Answer:
     @answer.setter
     def answer(self, _answer: str | list):
         if isinstance(_answer, str):
-            _answer = sub(r"\s*\r?\n", "", _answer)
+            _answer = sub(r"\s*\r?\n", "", _answer.removesuffix("."))
         elif not isinstance(_answer, list) or not all(
             isinstance(x, (str, int)) for x in _answer
         ):
             raise ValueError(
-                f'Zone {self.host} is invalid, "answer" must be a string or list of strings and ints, got {_answer!r}'
+                f'"answer" must be a string or list of strings and ints, got {_answer!r}'
             )
         self._answer = _answer

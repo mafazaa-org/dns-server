@@ -36,17 +36,21 @@ class Network(Record):
 
     @classmethod
     def resolve(cls, request: DNSRecord, reply: DNSRecord, handler: DNSHandler):
-        if handler.protocol == "udp":
-            proxy_r = request.send(server, DEFAULT_PORT, timeout=PROXY_SERVER_TIMEOUT)
-        else:
-            proxy_r = request.send(
-                server, DEFAULT_PORT, tcp=True, timeout=PROXY_SERVER_TIMEOUT
-            )
-        res = DNSRecord.parse(proxy_r)
+        try:
+            if handler.protocol == "udp":
+                proxy_r = request.send(
+                    server, DEFAULT_PORT, timeout=PROXY_SERVER_TIMEOUT
+                )
+            else:
+                proxy_r = request.send(
+                    server, DEFAULT_PORT, tcp=True, timeout=PROXY_SERVER_TIMEOUT
+                )
 
-        cls.insert(res)
-
-        return res
+            res = DNSRecord.parse(proxy_r)
+            cls.insert(res)
+            return res
+        except:
+            ...
 
     @classmethod
     def insert(cls, reply: DNSRecord):

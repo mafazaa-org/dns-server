@@ -21,6 +21,7 @@ TYPE_LOOKUP = {
     "SRV": QTYPE.SRV,
     "TXT": QTYPE.TXT,
     "SPF": QTYPE.TXT,
+    "HTTPS": QTYPE.HTTPS,
 }
 
 
@@ -68,7 +69,9 @@ class Block(Record):
             handler,
         )
         if not reply.rr:
-            reply.add_answer(Answer("CNAME", "block.opendns.com", MAX_TTL).getRR(host))
+            reply.add_answer(
+                Answer(TYPE_LOOKUP["CNAME"], "block.opendns.com", MAX_TTL).getRR(host)
+            )
         return reply
 
     @classmethod

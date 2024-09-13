@@ -20,7 +20,7 @@ def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_tim
         if not reply.rr:
             continue
 
-        if not first_time:
+        if not first_time or request.q.qtype == QTYPE.CNAME:
             continue
 
         for rr in reply.rr:
