@@ -11,7 +11,7 @@ google_answer = Answer(5, "forcesafesearch.google.com", MAX_TTL)
 
 
 class Zone(Record):
-    table_name = "zoneslist"
+    db_port = 6666
 
     @classmethod
     def query(
@@ -29,13 +29,3 @@ class Zone(Record):
         if ans:
             return cls.get_answers(reply, type_name, ans, handler)
         return reply
-
-    @classmethod
-    def get_answers(
-        cls, reply: DNSRecord, _type: str, host: tuple, handler: DNSHandler
-    ) -> RR:
-        answers = cls.execute(
-            "SELECT type, answer FROM answers WHERE zone_id = ?", (host[0],)
-        )
-        answers = map(lambda x: Answer(x[0], x[1]), answers)
-        return super().get_answers(reply, _type, host[1], answers, handler)

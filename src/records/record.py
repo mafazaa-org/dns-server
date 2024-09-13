@@ -4,14 +4,7 @@ from __future__ import annotations as _annotations
 from dnslib import QTYPE, RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
-from threading import Lock
-from sqlite3 import (
-    connect,
-    Connection,
-    Cursor,
-    PARSE_DECLTYPES,
-)
-from threading import Timer
+from redis import Redis
 
 try:
     from typing import Literal
@@ -39,16 +32,12 @@ RecordType = (
     | QTYPE.HTTPS
 )
 
-lock = Lock()
-
 
 class Record:
-    conn: Connection
-    crsr: Cursor
-    commiter: Timer
 
     to_string = lambda x: x
-    table_name: str
+    db_port = 6379
+    db_host = "localhost"
 
     def sub_match(self, q):
         return self._rtype == QTYPE.SOA and q.qname.matchSuffix(self._rname)
@@ -77,10 +66,7 @@ class Record:
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        return cls.execute(
-            f"SELECT * FROM {cls.table_name} WHERE host == '{host}'",
-            callback=lambda x: x.fetchone(),
-        )
+        ...
 
         # # no direct zone so look for an SOA record for a higher level zone
         # for record in Record.records:
@@ -92,32 +78,10 @@ class Record:
         #     return reply
 
     @classmethod
-    def execute(cls, sql: str, parameters=(), callback=lambda x: x.fetchall()):
-        lock.acquire(True)
-        res = callback(cls.crsr.execute(sql, parameters))
-        lock.release()
-        return res
-
+    def insert(cls, host): ...
     @classmethod
-    def insert(cls, host):
-        cls.execute(f"INSERT INTO {cls.table_name} (host) VALUES (?)", (host,))
-
-    @classmethod
-    def initialize(cls, index=True):
-        cls.conn = connect(
-            "data/data.db", check_same_thread=False, detect_types=PARSE_DECLTYPES
-        )
-        cls.crsr = cls.conn.cursor()
-        if index:
-            cls.execute(
-                f"CREATE INDEX IF NOT EXISTS hosts_{cls.table_name} ON {cls.table_name} (host);"
-            )
-
-    @classmethod
-    def run_commiter(cls):
-        cls.commiter = Timer(5, cls.run_commiter)
-        cls.commiter.start()
-        cls.conn.commit()
+    def initialize(cls):
+        cls.r = Redis(cls.db_host, port=cls.db_port, decode_responses=True)
 
     @classmethod
     def record_host(cls, request: DNSRecord):

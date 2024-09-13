@@ -6,7 +6,6 @@ from src.records.cache import Cache
 from src.records.block import Block
 from src.utils.constants import DEFAULT_PORT, server
 from time import sleep
-from sys import argv
 
 
 class DnsServer:
@@ -47,7 +46,4 @@ class DnsServer:
             pass
         finally:
             print("stopping DNS server")
-            Cache.cleaner.cancel()
-            Cache.commiter.cancel()
-            Block.commiter.cancel()
             self.stop()

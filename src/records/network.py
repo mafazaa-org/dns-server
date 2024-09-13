@@ -4,7 +4,6 @@ from .block import Block
 from .cache import Cache
 from dnslib import DNSRecord, DNSError
 from dnslib.server import DNSHandler
-from socket import timeout
 from ..utils.constants import DEFAULT_PORT, PROXY_SERVER_TIMEOUT, server
 
 

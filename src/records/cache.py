@@ -1,47 +1,16 @@
-from dnslib import RR, QTYPE
+from dnslib import RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from .record import Record, RecordType
 from .answer import Answer
-from datetime import datetime, timedelta
-from threading import Timer
+from datetime import datetime
 
 
 class Cache(Record):
-    table_name = "cachelist"
-    cleaner: Timer
 
     @classmethod
     def initialize(cls):
         super().initialize(False)
-        cls.execute(f"DROP TABLE IF EXISTS {cls.table_name}")
-
-        # creating cachelist table
-        q = cls.execute(
-            "SELECT sql FROM sqlite_master WHERE type='table' AND name='answers'",
-            callback=lambda x: x.fetchone(),
-        )[0].replace("CREATE TABLE", "CREATE TABLE IF NOT EXISTS")
-        cls.execute(
-            q.replace("answers", cls.table_name).replace(
-                "zone_id INTEGER",
-                "host TEXT NOT NULL,\n expire INTEGER",
-            )
-        )
-        cls.execute("CREATE INDEX IF NOT EXISTS hosts_cachelist ON cachelist (host);")
-        cls.execute(
-            "CREATE INDEX IF NOT EXISTS expire_cachelist ON cachelist (expire);"
-        )
-        cls.run_commiter()
-        cls.run_cleaner()
-
-    @classmethod
-    def run_cleaner(cls):
-        cls.cleaner = Timer(60, cls.run_cleaner)
-        cls.cleaner.start()
-        cls.execute(
-            f"DELETE FROM {cls.table_name} WHERE expire <= ?",
-            (int(datetime.now().timestamp()),),
-        )
 
     @classmethod
     def query(
@@ -79,9 +48,4 @@ class Cache(Record):
     @classmethod
     def insert(cls, host, _type: int, answer: str, ttl: int):
 
-        expire = int((datetime.now() + timedelta(seconds=ttl)).timestamp())
-
-        cls.execute(
-            f"INSERT OR IGNORE INTO {cls.table_name}(host, type, answer, expire) VALUES (?, ?, ?, ?)",
-            (host, _type, answer, expire),
-        )
+        ...
