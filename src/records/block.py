@@ -25,7 +25,6 @@ TYPE_LOOKUP = {
 
 
 class Block(Record):
-    table_name = "blocklist"
     answers = [
         Answer(TYPE_LOOKUP["A"], "0.0.0.0", MAX_TTL),
         Answer(TYPE_LOOKUP["AAAA"], "::", MAX_TTL),
@@ -58,16 +57,16 @@ class Block(Record):
     def query(
         cls,
         reply: DNSRecord,
-        type_name: RecordType,
+        _type: RecordType,
         host: str,
         request: DNSRecord,
         handler: DNSHandler,
     ):
         if match(cls.regex, host):
-            return cls.get_answers(reply, type_name, host, handler)
-        ans = super().query(reply, type_name, host, request, handler)
+            return cls.get_answers(reply, _type, host, handler)
+        ans = super().query(reply, _type, host, request, handler)
         if ans:
-            return cls.get_answers(reply, type_name, host, handler)
+            return cls.get_answers(reply, _type, host, handler)
         return reply
 
     @classmethod

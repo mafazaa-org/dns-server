@@ -10,40 +10,30 @@ class Cache(Record):
 
     @classmethod
     def initialize(cls):
-        super().initialize(False)
+        super().initialize()
 
     @classmethod
     def query(
         cls,
         reply: DNSRecord,
-        type_name: RecordType,
+        _type: RecordType,
         host: str,
         request: DNSRecord,
         handler: DNSHandler,
     ):
+        key = f"{host}:{_type}"
+        ans = cls.r.lrange(key, 0, -1)
+        
+        print(ans)
 
-        ans: list[tuple] = cls.execute(
-            f"SELECT host, type, answer, expire FROM {cls.table_name} WHERE host=?",
-            (host,),
-        )
         if len(ans) > 0:
+            ttl = cls.r.ttl(key)
+            answers = map( lambda x: Answer(_type, x, ttl) ,ans)
             try:
-                return cls.get_answers(reply, type_name, ans, handler)
+                return cls.get_answers(reply, _type, host, answers, handler)
             except BaseException as e:
                 print(f"error with host {host}\n{e}")
         return reply
-
-    @classmethod
-    def get_answers(
-        cls,
-        reply: DNSRecord,
-        _type: str,
-        answers_list: list[tuple],
-        handler: DNSHandler,
-    ) -> RR:
-        now = datetime.now().timestamp()
-        answers = map(lambda x: Answer(x[1], x[2], int(x[3] - now)), answers_list)
-        return super().get_answers(reply, _type, answers_list[0][0], answers, handler)
 
     @classmethod
     def insert(cls, host, _type: int, answer: str, ttl: int):

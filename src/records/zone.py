@@ -17,7 +17,7 @@ class Zone(Record):
     def query(
         cls,
         reply: DNSRecord,
-        type_name: RecordType,
+        _type: RecordType,
         host: str,
         request: DNSRecord,
         handler: DNSHandler,
@@ -25,7 +25,7 @@ class Zone(Record):
         if match(google_regex, host):
             reply.add_answer(google_answer.getRR(host))
             return reply
-        ans = super().query(reply, type_name, host, request, handler)
+        ans = super().query(reply, _type, host, request, handler)
         if ans:
-            return cls.get_answers(reply, type_name, ans, handler)
+            return cls.get_answers(reply, _type, ans, handler)
         return reply

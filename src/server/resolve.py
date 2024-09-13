@@ -6,6 +6,8 @@ from src.records.block import Block
 from src.records.cache import Cache
 from src.records.network import Network
 
+RecordClasses: list[Record] = [Cache, Zone, Block, Network]
+
 
 def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_time=True):
     # get type name, reply and clean host
@@ -13,15 +15,14 @@ def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_tim
     host = Record.record_host(request)
 
     # for recordclass in recordclasses
-    for RecordClass in [Cache, Zone, Block, Network]:
-
+    for RecordClass in RecordClasses:
         # query
         reply: DNSRecord = RecordClass.query(reply, _type, host, request, handler)
         if not reply.rr:
             continue
 
         if not first_time or request.q.qtype == QTYPE.CNAME:
-            continue
+            return reply
 
         for rr in reply.rr:
             if rr.rtype != 5 and _type in [QTYPE.A, QTYPE.AAAA]:
