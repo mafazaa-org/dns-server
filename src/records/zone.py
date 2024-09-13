@@ -24,7 +24,4 @@ class Zone(Record):
         if match(google_regex, host):
             reply.add_answer(google_answer.getRR(host))
             return reply
-        ans = super().query(reply, _type, host, request, handler)
-        if ans:
-            return cls.get_answers(reply, _type, ans, handler)
-        return reply
+        return super().query(reply, _type, host, request, handler)

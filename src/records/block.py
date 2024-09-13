@@ -25,6 +25,7 @@ TYPE_LOOKUP = {
 
 
 class Block(Record):
+    db_port = 8888
     answers = [
         Answer(TYPE_LOOKUP["A"], "0.0.0.0", MAX_TTL),
         Answer(TYPE_LOOKUP["AAAA"], "::", MAX_TTL),
@@ -62,13 +63,19 @@ class Block(Record):
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        if match(cls.regex, host):
-            return cls.get_answers(reply, _type, host, handler)
-        ans = super().query(reply, _type, host, request, handler)
-        if ans:
+        if match(cls.regex, host) or cls.r.exists(host):
             return cls.get_answers(reply, _type, host, handler)
         return reply
 
     @classmethod
-    def create_regex(self, contains: list[str], subdomains: list[str]):
+    def create_regex(cls, contains: list[str], subdomains: list[str]):
         return f"(.*({'|'.join(contains)}).*)|((.+\.)?({'|'.join(subdomains)})\..+)"
+
+    @classmethod
+    def insert(cls, host):
+        cls.r.set(host, 1)
+
+    @classmethod
+    def initialize(cls):
+        super().initialize()
+        cls.regex = cls.create_regex(["porn", "sex"], ["ads?"])
