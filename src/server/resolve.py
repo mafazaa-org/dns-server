@@ -12,7 +12,7 @@ RecordClasses: list[Record] = [Cache, Zone, Block, Network]
 def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_time=True):
     # get type name, reply and clean host
     _type = request.q.qtype
-    host = Record.record_host(request)
+    host = Record.clean_host(request.q.qname.__str__())
 
     # for recordclass in recordclasses
     for RecordClass in RecordClasses:

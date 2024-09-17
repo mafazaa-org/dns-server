@@ -79,9 +79,5 @@ class Record:
         cls.r = Redis(cls.db_host, port=cls.db_port, decode_responses=True)
 
     @classmethod
-    def record_host(cls, request: DNSRecord):
-        return cls.clean_host(request.q.qname.__str__())
-
-    @classmethod
     def clean_host(cls, host: str):
         return host.removesuffix(".")

@@ -56,6 +56,7 @@ class Network(Record):
             cls.insert(res, host, _type)
             return res
         except:
+            return reply
             ...
 
     @classmethod

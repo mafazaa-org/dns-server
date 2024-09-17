@@ -4,8 +4,8 @@ def handle_test(func, init, finish):
         try:
             init()
             func(*args, **kwargs)
-        except:
-            ...
+        except BaseException as e:
+            raise e
         finally:
             finish()
 

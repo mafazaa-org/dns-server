@@ -12,7 +12,7 @@ class Cache(Record):
         ttl = rr[0].ttl
         answers = []
         for ans in rr:
-            answer = ans.rdata.__str__()
+            answer = cls.clean_host(ans.rdata.__str__())
             if ans.rtype == _type:
                 answers.append(answer)
                 ttl = min(ttl, ans.ttl)
