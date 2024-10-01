@@ -1,4 +1,4 @@
-from dnslib import DNSRecord, QTYPE, RR, DNSQuestion
+from dnslib import DNSRecord, QTYPE, DNSQuestion
 from dnslib.server import DNSHandler
 from src.records.record import Record
 from src.records.block import Block

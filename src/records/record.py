@@ -9,11 +9,6 @@ from .record_type import RecordType
 from .answer import Answer
 from re import match
 
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal
-
 DB_PORT = 6379
 DB_HOST = "localhost"
 

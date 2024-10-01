@@ -1,8 +1,5 @@
-from dnslib.dns import DNSRecord, RR
-from dnslib.server import DNSHandler
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
-from re import match
 
 
 class Cache(Record):
