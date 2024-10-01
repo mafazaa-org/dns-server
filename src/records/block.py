@@ -25,7 +25,8 @@ TYPE_LOOKUP = {
 
 
 class Block(Record):
-    db_port = 8888
+    global DB
+
     answers = [
         Answer(TYPE_LOOKUP["A"], "0.0.0.0", MAX_TTL),
         Answer(TYPE_LOOKUP["AAAA"], "::", MAX_TTL),
@@ -63,7 +64,7 @@ class Block(Record):
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        if match(cls.regex, host) or cls.r.exists(host):
+        if match(cls.regex, host) or Record.DB.exists(host):
             return cls.get_answers(reply, _type, host, handler)
         return reply
 

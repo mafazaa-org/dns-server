@@ -1,15 +1,15 @@
 from .server.dnsserver import DnsServer
-from .records.block import Block
-from .records.zone import Zone
+from .records.record import Record
 from .records.cache import Cache
+from .records.block import Block
 
 
 def main():
 
     server = DnsServer()
 
+    Record.initialize()
     Cache.initialize()
-    Zone.initialize()
     Block.initialize()
 
     server.start()

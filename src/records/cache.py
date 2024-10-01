@@ -1,14 +1,18 @@
 from dnslib.dns import DNSRecord, RR
 from dnslib.server import DNSHandler
 from .record import Record, RecordType
-from .answer import Answer
+from .answer import Answer, MAX_TTL
+from re import match
 
 
 class Cache(Record):
 
+    regex = "(w{3}\.)google\..+"
+    answers = [Answer(5, "forcesafesearch.google.com", MAX_TTL)]
+
     @classmethod
     def insert(cls, host: str, _type: RecordType, rr):
-        main_key = f"{host}:{_type}"
+        main_key = cls.to_key(host, _type)
         ttl = rr[0].ttl
         answers = []
         for ans in rr:

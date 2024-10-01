@@ -52,12 +52,12 @@ class Network(Record):
                     server, DEFAULT_PORT, tcp=True, timeout=PROXY_SERVER_TIMEOUT
                 )
 
-            res = DNSRecord.parse(proxy_r)
-            cls.insert(res, host, _type)
-            return res
-        except:
+            reply = DNSRecord.parse(proxy_r)
+            cls.insert(reply, host, _type)
+        except BaseException as e:
+            raise e
+        finally:
             return reply
-            ...
 
     @classmethod
     def insert(cls, reply: DNSRecord, host: str, _type: RecordType):

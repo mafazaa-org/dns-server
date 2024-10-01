@@ -7,21 +7,26 @@ from dnslib.server import DNSHandler
 from redis import Redis
 from .record_type import RecordType
 from .answer import Answer
+from re import match
 
 try:
     from typing import Literal
 except ImportError:
     from typing_extensions import Literal
 
-
-COMMIT_INTERVALS = 1
+DB_PORT = 6379
+DB_HOST = "localhost"
 
 
 class Record:
 
     to_string = lambda x: x
-    db_port = 6379
-    db_host = "localhost"
+    to_key = lambda host, _type: f"{host}:{_type}"
+    DB: Redis
+    query_db = lambda key: Record.DB.lrange(key, 0, -1)
+
+    regex: str
+    answers: list[Answer]
 
     def sub_match(self, q):
         return self._rtype == QTYPE.SOA and q.qname.matchSuffix(self._rname)
@@ -32,7 +37,7 @@ class Record:
         reply: DNSRecord,
         _type: RecordType,
         host: str,
-        answers: list,
+        answers: list[Answer],
         handler: DNSHandler,
     ) -> RR:
         for answer in answers:
@@ -50,11 +55,16 @@ class Record:
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        key = f"{host}:{_type}"
-        ans = cls.r.lrange(key, 0, -1)
+        if match(cls.regex, host):
+            reply = cls.get_answers(reply, _type, host, cls.answers, handler)
+            if reply.rr:
+                return reply
+
+        key = cls.to_key(host, _type)
+        ans = cls.query_db(key)
 
         if len(ans) > 0:
-            ttl = cls.r.ttl(key)
+            ttl = cls.DB.ttl(key)
             answers = map(lambda x: Answer(_type, x, ttl), ans)
             try:
                 return cls.get_answers(reply, _type, host, answers, handler)
@@ -72,11 +82,11 @@ class Record:
         #     return reply
 
     @classmethod
-    def insert(cls, host): ...
+    def insert(cls): ...
 
     @classmethod
     def initialize(cls):
-        cls.r = Redis(cls.db_host, port=cls.db_port, decode_responses=True)
+        cls.DB = Redis(DB_HOST, port=DB_PORT, decode_responses=True)
 
     @classmethod
     def clean_host(cls, host: str):

@@ -1,12 +1,11 @@
 from dnslib import DNSRecord, QTYPE, RR, DNSQuestion
 from dnslib.server import DNSHandler
 from src.records.record import Record
-from src.records.zone import Zone
 from src.records.block import Block
 from src.records.cache import Cache
 from src.records.network import Network
 
-RecordClasses: list[Record] = [Cache, Zone, Block, Network]
+RecordClasses: list[Record] = [Cache, Block, Network]
 
 
 def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_time=True):
