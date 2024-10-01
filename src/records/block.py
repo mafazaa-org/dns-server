@@ -74,7 +74,7 @@ class Block(Record):
 
     @classmethod
     def insert(cls, host):
-        cls.r.set(host, 1)
+        Record.DB.set(host, 1)
 
     @classmethod
     def initialize(cls):

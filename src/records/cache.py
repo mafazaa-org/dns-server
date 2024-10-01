@@ -23,8 +23,8 @@ class Cache(Record):
                 continue
 
             key = f"{cls.clean_host(ans.rname.__str__())}:{ans.rtype}"
-            cls.r.lpush(key, answer)
-            cls.r.expire(key, min(cls.r.ttl(key), ans.ttl))
+            Record.DB.lpush(key, answer)
+            Record.DB.expire(key, min(Record.DB.ttl(key), ans.ttl))
 
-        cls.r.lpush(main_key, *answers)
-        cls.r.expire(main_key, ttl)
+        Record.DB.lpush(main_key, *answers)
+        Record.DB.expire(main_key, ttl)
