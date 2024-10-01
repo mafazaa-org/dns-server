@@ -63,7 +63,12 @@ class Network(Record):
     def insert(cls, reply: DNSRecord, host: str, _type: RecordType):
         answer = reply.a.rdata.__str__()
 
-        if answer in ["146.112.61.106", "::ffff:9270:3d6a"]:
+        if answer in [
+            "146.112.61.106",
+            "::ffff:9270:3d6a",
+            "::ffff:146.112.61.104",
+            "146.112.61.104",
+        ]:
             Block.insert(host)
             return
 
