@@ -69,6 +69,7 @@ class Network(Record):
     def insert(cls, reply: DNSRecord, host: str, _type: RecordType):
         answer = reply.a.rdata.__str__()
 
-        Block.insert(host, answer)
+        if Block.insert(host, answer):
+            return
 
         Cache.insert(host, _type, reply.rr)

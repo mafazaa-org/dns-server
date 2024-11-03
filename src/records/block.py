@@ -74,20 +74,19 @@ class Block(Record):
 
     @classmethod
     def insert(cls, host, answer):
+
+        disable = answer in [
+            "146.112.61.106",
+            "::ffff:9270:3d6a",
+            "::ffff:146.112.61.104",
+            "146.112.61.104",
+        ]
+
         Record.DB.set(
             host,
-            (
-                1
-                if answer
-                in [
-                    "146.112.61.106",
-                    "::ffff:9270:3d6a",
-                    "::ffff:146.112.61.104",
-                    "146.112.61.104",
-                ]
-                else 0
-            ),
+            (1 if disable else 0),
         )
+        return disable
 
     @classmethod
     def initialize(cls):
