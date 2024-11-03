@@ -64,7 +64,7 @@ class Block(Record):
         request: DNSRecord,
         handler: DNSHandler,
     ):
-        if match(cls.regex, host) or Record.DB.exists(host):
+        if match(cls.regex, host) or Record.DB.get(host) == "1":
             return cls.get_answers(reply, _type, host, handler)
         return reply
 
@@ -73,8 +73,21 @@ class Block(Record):
         return f"(.*({'|'.join(contains)}).*)|((.+\.)?({'|'.join(subdomains)})\..+)"
 
     @classmethod
-    def insert(cls, host):
-        Record.DB.set(host, 1)
+    def insert(cls, host, answer):
+        Record.DB.set(
+            host,
+            (
+                1
+                if answer
+                in [
+                    "146.112.61.106",
+                    "::ffff:9270:3d6a",
+                    "::ffff:146.112.61.104",
+                    "146.112.61.104",
+                ]
+                else 0
+            ),
+        )
 
     @classmethod
     def initialize(cls):

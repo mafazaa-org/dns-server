@@ -4,7 +4,12 @@ from .block import Block
 from .cache import Cache
 from dnslib import DNSRecord
 from dnslib.server import DNSHandler
-from ..utils.constants import DEFAULT_PORT, PROXY_SERVER_TIMEOUT, server
+from ..utils.constants import (
+    DEFAULT_PORT,
+    PROXY_SERVER_TIMEOUT,
+    UPSTREAMS,
+    PUBLIC_DNS,
+)
 
 
 class Network(Record):
@@ -42,6 +47,7 @@ class Network(Record):
         _type: RecordType,
         handler: DNSHandler,
     ):
+        server = PUBLIC_DNS[0] if Record.DB.exists(host) else UPSTREAMS[0]
         try:
             if handler.protocol == "udp":
                 proxy_r = request.send(
@@ -63,13 +69,6 @@ class Network(Record):
     def insert(cls, reply: DNSRecord, host: str, _type: RecordType):
         answer = reply.a.rdata.__str__()
 
-        if answer in [
-            "146.112.61.106",
-            "::ffff:9270:3d6a",
-            "::ffff:146.112.61.104",
-            "146.112.61.104",
-        ]:
-            Block.insert(host)
-            return
+        Block.insert(host, answer)
 
         Cache.insert(host, _type, reply.rr)
