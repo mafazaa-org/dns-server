@@ -1,6 +1,6 @@
-from dns_server.src.records.record import Record
-from dns_server.src.records.answer import Answer
-from ..utils.handle_test import handle_test as ht
+from records.record import Record
+from records.answer import Answer
+from utils.handle_test import handle_test as ht
 from redis import Redis
 from dnslib import DNSRecord
 

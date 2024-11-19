@@ -1,5 +1,5 @@
-from dns_server.src.records.cache import Cache
-from dns_server.src.records.answer import Answer
+from records.cache import Cache
+from records.answer import Answer
 from ..utils.handle_test import handle_test as ht
 from dnslib import DNSRecord
 from redis import Redis

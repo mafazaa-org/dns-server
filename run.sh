@@ -1,4 +1,3 @@
-
 sudo tmux has-session -t server
 
 if [ $? == 0 ]; then

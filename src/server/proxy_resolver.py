@@ -1,7 +1,7 @@
 from dnslib import QTYPE, RCODE, RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
-from env import DEFAULT_PORT
+from src.env import DEFAULT_PORT
 from .resolve import resolve
 from traceback import print_exc
 

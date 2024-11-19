@@ -1,4 +1,4 @@
-from dns_server.src.records.answer import Answer
+from records.answer import Answer
 from pytest import raises
 
 

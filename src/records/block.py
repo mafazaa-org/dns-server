@@ -5,7 +5,7 @@ from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from re import match
 from requests import get
-from env import DB_ADDR, LEVEL
+from ..env import DB_ADDR, LEVEL
 
 TYPE_LOOKUP = {
     "A": QTYPE.A,
@@ -90,3 +90,7 @@ class Block(Record):
     def initialize(cls):
         super().initialize()
         cls.regex = get(f"{DB_ADDR}/block/regex?level={LEVEL}").text
+        if not cls.regex:
+            raise Exception("Couldn't get block regex from db")
+        print("Got block regex from db successfully: ")
+        print(cls.regex, end="\n\n")

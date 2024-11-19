@@ -4,7 +4,7 @@ from .block import Block
 from .cache import Cache
 from dnslib import DNSRecord
 from dnslib.server import DNSHandler
-from env import (
+from src.env import (
     DEFAULT_PORT,
     PROXY_SERVER_TIMEOUT,
     UPSTREAM,

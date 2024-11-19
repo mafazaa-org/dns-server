@@ -1,11 +1,24 @@
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
+from requests import post
+from src.env import DB_ADDR, LEVEL, SERVER_HOSTNAME
 
 
 class Cache(Record):
 
     regex = "(w{3}\.)google\..+"
     answers = [Answer(5, "forcesafesearch.google.com", MAX_TTL)]
+
+    @classmethod
+    def initialize(cls):
+        super().initialize()
+        res = post(
+            f"{DB_ADDR}/update/redis?level={LEVEL}&server={SERVER_HOSTNAME}"
+        ).json()
+        if res["status"] != "success":
+            raise Exception("Couldn't fetch data from db")
+
+        print("Fetched data successfully")
 
     @classmethod
     def insert(cls, host: str, _type: RecordType, rr):
