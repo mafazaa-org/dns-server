@@ -1,14 +1,13 @@
 from dnslib import QTYPE, RCODE, RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
-from src.utils.constants import DEFAULT_PORT
+from env import DEFAULT_PORT
 from .resolve import resolve
 from traceback import print_exc
 
 
 class ProxyResolver:
-    def __init__(self, upstream: str):
-        self.address = upstream
+    def __init__(self):
         self.port = DEFAULT_PORT
 
     def resolve(self, request: DNSRecord, handler: DNSHandler):

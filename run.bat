@@ -1,1 +1,1 @@
-python . primary
+python .

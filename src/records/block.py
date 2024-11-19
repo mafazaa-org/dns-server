@@ -4,6 +4,8 @@ from dnslib.server import DNSHandler
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from re import match
+from requests import get
+from env import DB_ADDR, LEVEL
 
 TYPE_LOOKUP = {
     "A": QTYPE.A,
@@ -69,10 +71,6 @@ class Block(Record):
         return reply
 
     @classmethod
-    def create_regex(cls, contains: list[str], subdomains: list[str]):
-        return f"(.*({'|'.join(contains)}).*)|((.+\.)?({'|'.join(subdomains)})\..+)"
-
-    @classmethod
     def insert(cls, host, answer):
 
         disable = answer in [
@@ -91,4 +89,4 @@ class Block(Record):
     @classmethod
     def initialize(cls):
         super().initialize()
-        cls.regex = cls.create_regex(["porn", "sex"], ["ads?"])
+        cls.regex = get(f"{DB_ADDR}/block/regex?level={LEVEL}").text

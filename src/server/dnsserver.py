@@ -2,23 +2,18 @@ from __future__ import annotations as _annotations
 
 from dnslib.server import DNSServer as LibDNSServer
 from src.server.proxy_resolver import ProxyResolver
-from src.records.cache import Cache
-from src.records.block import Block
-from src.utils.constants import DEFAULT_PORT, server
+from env import DEFAULT_PORT
 from time import sleep
 
 
 class DnsServer:
     def __init__(self) -> None:
-        self.upstream = server
         self.udp_server: LibDNSServer | None = None
         self.tcp_server: LibDNSServer | None = None
 
     def start(self):
-        print(
-            f'starting DNS server on port {DEFAULT_PORT}, upstream DNS server "{self.upstream}"'
-        )
-        resolver = ProxyResolver(self.upstream)
+        print(f"starting DNS server on port {DEFAULT_PORT}")
+        resolver = ProxyResolver()
 
         self.udp_server = LibDNSServer(resolver, port=DEFAULT_PORT)
         self.tcp_server = LibDNSServer(resolver, port=DEFAULT_PORT, tcp=True)

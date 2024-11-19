@@ -4,10 +4,10 @@ from .block import Block
 from .cache import Cache
 from dnslib import DNSRecord
 from dnslib.server import DNSHandler
-from ..utils.constants import (
+from env import (
     DEFAULT_PORT,
     PROXY_SERVER_TIMEOUT,
-    UPSTREAMS,
+    UPSTREAM,
     PUBLIC_DNS,
 )
 
@@ -47,7 +47,7 @@ class Network(Record):
         _type: RecordType,
         handler: DNSHandler,
     ):
-        server = PUBLIC_DNS[0] if Record.DB.exists(host) else UPSTREAMS[0]
+        server = PUBLIC_DNS if Record.DB.exists(host) else UPSTREAM
         try:
             if handler.protocol == "udp":
                 proxy_r = request.send(

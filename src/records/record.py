@@ -8,9 +8,7 @@ from redis import Redis
 from .record_type import RecordType
 from .answer import Answer
 from re import match
-
-DB_PORT = 6379
-DB_HOST = "localhost"
+from env import REDIS_HOST, REDIS_PORT
 
 
 class Record:
@@ -81,7 +79,7 @@ class Record:
 
     @classmethod
     def initialize(cls):
-        cls.DB = Redis(DB_HOST, port=DB_PORT, decode_responses=True)
+        cls.DB = Redis(REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 
     @classmethod
     def clean_host(cls, host: str):
