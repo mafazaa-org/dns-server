@@ -47,19 +47,16 @@ This is how to do it using opendns:
 ## Configuration Documentaion
 
 ### Environment Variables
-1. Overview
+
+#### Overview
     The .env file is used to set environment variables that configure the operation of the application. These variables are used to define settings such as server addresses, database connections, and operational levels, which can be accessed throughout the application to maintain flexibility and ease of deployment.
 
-2. Environment Variables
-    1. UPSTREAM
-        1. Description:
-            Specifies the upstream DNS server to which DNS queries are forwarded if the local server cannot resolve them. Locally, it is high-dns.mafazaa.com or low-dns.mafazaa.com but it is in production phase
-        2. Example Value:
-            'UPSTREAM=high-dns.mafazaa.com'
-        3. Purpose:
-            This allows the application to leverage external DNS servers for queries that it does not handle directly, improving responsiveness and capability.
+#### Environment Variables
 
-    2. PUBLIC_DNS
+##### UPSTREAM
+        Specifies the upstream DNS server to which DNS queries are forwarded if the local server cannot resolve them. Locally, it is high-dns.mafazaa.com or low-dns.mafazaa.com but it is open DNS in production phase. An exanple for that is 'UPSTREAM=high-dns.mafazaa.com'. This allows the application to leverage external DNS servers for queries that it does not handle directly, improving responsiveness and capability.
+
+##### PUBLIC_DNS
         1. Description:
             The IP address of a public DNS server that can be used for queries. The example below shows the PUBLIC_DNS (8.8.8.8) which is Google's Public DNS Server
         2. Example Value:
@@ -67,7 +64,7 @@ This is how to do it using opendns:
         3. Purpose:
             Public DNS servers like this one can be used to resolve DNS queries that the local server cannot answer, acting as a fallback.
 
-    3. DB_ADDR
+##### DB_ADDR
         1. Description:
             The URL of the database that the application will connect to, which is a large databese in production phase.
         2. Example Value:
@@ -75,15 +72,15 @@ This is how to do it using opendns:
         3. Purpose:
             This variable specifies where the application will find the database server, enabling support for features that involve persistent storage or caching of data.
 
-    4. LEVEL
+##### LEVEL
         1. Description:
-            Represents the operational or logging level of the DNS resolver.
+            Represents security level of the server. Low level DNS only blocks Pornography while high level DNS bloks blocks Pornography and other websites like Netflix and spotify.
         2. Example Value:
             'LEVEL=high'
         3. Purpose:
-            This could be used for determining the verbosity of logs or the level of detail in response handling. Different levels could dictate how much information is printed in logs or which features are enabled.
+            It's purpose is to check .
             
-    5. REDIS_PORT
+##### REDIS_PORT
         1. Description:
             The port used for establishing a connection to the Redis database.
         2. Example Value:
@@ -91,7 +88,7 @@ This is how to do it using opendns:
         3. Purpose:
             This specifies the port through which the application communicates with Redis, a commonly used in-memory store for caching and rapid data retrieval.
 
-    6. REDIS_HOST
+##### REDIS_HOST
         1. Description:
             The hostname or IP address of the Redis database server.
         2. Example Value:
@@ -99,7 +96,7 @@ This is how to do it using opendns:
         3. Purpose:
             This variable allows the application to know where the Redis service is hosted, facilitating connections to it for data retrieval and storage.
 
-    7. SERVER_HOSTNAME
+##### SERVER_HOSTNAME
         1. Description:
             The hostname of the DNS server itself.
         2. Example Value:
@@ -107,7 +104,7 @@ This is how to do it using opendns:
         3. Purpose:
             This may be used in logging, providing information about the server’s identity in various messages and responses, or possibly in responses to queries.
 
-3. Usage in Application
+#### Usage in Application
 These environment variables are loaded into the application at runtime using the dotenv library. Here's how they typically work in context:
 
 Initialization: At the start of the application, load_dotenv() is called to import these variables, making them accessible via os.getenv().
