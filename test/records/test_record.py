@@ -1,8 +1,7 @@
-from records.record import Record
-from records.answer import Answer
-from utils.handle_test import handle_test as ht
-from redis import Redis
+from test.utils.handle_test import handle_test as ht
 from dnslib import DNSRecord
+from src.records.record import Record
+from src.records.answer import Answer
 
 
 def __init__():
@@ -13,7 +12,8 @@ def __finish__():
     Record.r.close()
 
 
-handle_test = lambda x: ht(x, __init__, __finish__)
+def handle_test(x):
+    return ht(x, __init__, __finish__)
 
 
 @handle_test
@@ -23,14 +23,18 @@ def test_get_answers():
     reply = req.reply()
 
     google_answers = [Answer(5, "forcesafesearch.google.com", 300)]
-    safesearch_answers = [Answer(1, "216.1.1.1", 300), Answer(28, "ff:ff:ff:ff:", 300)]
-    block_answers = [Answer(1, "0.0.0.0", 300), Answer(28, "::", 300)]
+    safesearch_answers = [Answer(1, "216.1.1.1", 300),
+                          Answer(28, "ff:ff:ff:ff:", 300)]
 
-    assert Record.get_answers(reply, 5, "www.google.com", google_answers, None).rr[
+    assert Record.get_answers(reply, 5,
+                              "www.google.com",
+                              google_answers, None).rr[
         0
     ] == google_answers[0].getRR("www.google.com")
 
-    assert Record.get_answers(reply, 1, "www.google.com", google_answers, None).rr[
+    assert Record.get_answers(reply, 1,
+                              "www.google.com",
+                              google_answers, None).rr[
         0
     ] == google_answers[0].getRR("www.google.com")
 
@@ -59,7 +63,8 @@ def test_query():
     req = DNSRecord.question("www.google.com", "CNAME")
     reply = req.reply()
 
-    assert Record.query(reply, 5, "www.google.com", req, None).rr[0] == answers[
+    assert Record.query(reply, 5,
+                        "www.google.com", req, None).rr[0] == answers[
         0
     ].getRR("www.google.com")
 

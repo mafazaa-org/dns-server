@@ -1,9 +1,9 @@
 from __future__ import annotations as _annotations
 
+from time import sleep
 from dnslib.server import DNSServer as LibDNSServer
 from src.server.proxy_resolver import ProxyResolver
-from src.env import DEFAULT_PORT
-from time import sleep
+from src.constants import DEFAULT_PORT
 
 
 class DnsServer:

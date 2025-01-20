@@ -1,5 +1,5 @@
-from src.records.answer import Answer
 from unittest import TestCase, main
+from src.records.answer import Answer
 
 
 class TestAnswer(TestCase):
