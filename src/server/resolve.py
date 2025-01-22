@@ -5,11 +5,10 @@ from src.records.block import Block
 from src.records.cache import Cache
 from src.records.network import Network
 
-RecordClasses: list[type[Record]] = [Cache, Block, Network]
+RecordClasses: list[Record] = [Cache, Block, Network]
 
 
-def resolve(request: DNSRecord, reply: DNSRecord,
-            handler: DNSHandler, first_time=True):
+def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_time=True):
     # get type name, reply and clean host
     _type = request.q.qtype
     host = Record.clean_host(request.q.qname.__str__())
@@ -17,7 +16,7 @@ def resolve(request: DNSRecord, reply: DNSRecord,
     # for recordclass in recordclasses
     for RecordClass in RecordClasses:
         # query
-        reply = RecordClass.query(reply, _type, host, request, handler)
+        reply: DNSRecord = RecordClass.query(reply, _type, host, request, handler)
         if not reply.rr:
             continue
 
@@ -29,8 +28,7 @@ def resolve(request: DNSRecord, reply: DNSRecord,
                 continue
             try:
                 q = DNSRecord(
-                    q=DNSQuestion(qname=rr.rdata.__str__(),
-                                  qtype=request.q.qtype)
+                    q=DNSQuestion(qname=rr.rdata.__str__(), qtype=request.q.qtype)
                 )
             except UnicodeError:
                 print("\n\n\nthere was an error while encoding\n\n\n")

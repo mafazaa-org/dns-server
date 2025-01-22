@@ -5,7 +5,7 @@ from datetime import datetime
 from textwrap import wrap
 
 from dnslib import QTYPE, RR, dns
-from src.records.record_type import RecordType
+from .record_type import RecordType
 
 TYPE_LOOKUP = {
     QTYPE.A: dns.A,
@@ -45,19 +45,14 @@ class Answer:
         else:
             if self._rtype == QTYPE.SOA and len(_answer) == 2:
                 # add sensible times to SOA
-                self.args = _answer + [(SERIAL_NO,
-                                        3600,
-                                        3600 * 3,
-                                        3600 * 24,
-                                        3600)]
+                self.args = _answer + [(SERIAL_NO, 3600, 3600 * 3, 3600 * 24, 3600)]
             else:
                 self.args = _answer
 
         self.ttl = (
             ttl
             if ttl and ttl > 0
-            else 3600 * 24 if self._rtype in (QTYPE.NS, QTYPE.SOA)
-            else DEFAULT_TTL
+            else 3600 * 24 if self._rtype in (QTYPE.NS, QTYPE.SOA) else DEFAULT_TTL
         )
 
     def getRR(self, _rname):

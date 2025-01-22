@@ -4,12 +4,20 @@ from .block import Block
 from .cache import Cache
 from dnslib import DNSRecord
 from dnslib.server import DNSHandler
-from src.env import (
+from src.constants import (
     DEFAULT_PORT,
     PROXY_SERVER_TIMEOUT,
-    UPSTREAM,
-    PUBLIC_DNS,
 )
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+UPSTREAM = os.getenv('UPSTREAM')
+PUBLIC_DNS = os.getenv('PUBLIC_DNS')
+
+# constants.py: DEFAULT_PORT, PROXY_SERVER_TIMEOUT
+# .env: UPSTREAM, PUBLIC_DNS
 
 
 class Network(Record):

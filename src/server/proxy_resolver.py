@@ -1,9 +1,9 @@
-from traceback import print_exc
-from dnslib import RCODE
+from dnslib import QTYPE, RCODE, RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from src.constants import DEFAULT_PORT
-from src.server.resolve import resolve
+from .resolve import resolve
+from traceback import print_exc
 
 
 class ProxyResolver:

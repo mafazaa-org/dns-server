@@ -1,17 +1,15 @@
-from re import match
-import os
 from dnslib import RR, QTYPE
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
+from .record import Record, RecordType
+from .answer import Answer, MAX_TTL
+from re import match
 from requests import get
 from dotenv import load_dotenv
-from src.records.record import Record, RecordType
-from src.records.answer import Answer, MAX_TTL
+import os
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Access the environment variables
 DB_ADDR = os.getenv('DB_ADDR')
 LEVEL = os.getenv('LEVEL')
 
@@ -80,6 +78,7 @@ class Block(Record):
 
     @classmethod
     def insert(cls, host, answer):
+
         disable = answer in [
             "146.112.61.106",
             "::ffff:9270:3d6a",

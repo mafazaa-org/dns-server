@@ -1,41 +1,45 @@
 from __future__ import annotations as _annotations
-from re import match
-import os
+
+
 from dnslib import QTYPE, RR
 from dnslib.dns import DNSRecord
+from dnslib.server import DNSHandler
 from redis import Redis
 from dotenv import load_dotenv
-from src.records.record_type import RecordType
-from src.records.answer import Answer
+from .record_type import RecordType
+from .answer import Answer
+from re import match
+import os
 
 load_dotenv()
+
+REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_PORT = os.getenv('REDIS_PORT')
+
+# REDIS_HOST, REDIS_PORT
 
 
 class Record:
 
-    to_string = lambda x: x  # noqa: E731
-    to_key = lambda host, _type: f"{host}:{_type}"  # noqa: E731
+    to_string = lambda x: x
+    to_key = lambda host, _type: f"{host}:{_type}"
     DB: Redis
-    query_db = lambda key: Record.DB.lrange(key, 0, -1)  # noqa: E731
+    query_db = lambda key: Record.DB.lrange(key, 0, -1)
 
-    # Make regex a string with a default fallback
-    regex: str = os.getenv('REGEX') or ""
-    answers: list[Answer] = [Answer(5, "forcesafesearch.google.com", 300)]
+    regex: str
+    answers: list[Answer]
 
-    def __init__(self):
-        self._rtype = None  # Initialize rtype
-        self._rname = None  # Initialize rname
-
-    def sub_match(self, q) -> bool:
+    def sub_match(self, q):
         return self._rtype == QTYPE.SOA and q.qname.matchSuffix(self._rname)
 
     @classmethod
     def get_answers(
-        cls,
+        self,
         reply: DNSRecord,
         _type: RecordType,
         host: str,
-        answers: list[Answer]
+        answers: list[Answer],
+        handler: DNSHandler,
     ) -> RR:
         for answer in answers:
             if answer._rtype == _type or answer._rtype == QTYPE.CNAME:
@@ -48,32 +52,43 @@ class Record:
         cls,
         reply: DNSRecord,
         _type: RecordType,
-        host: str
-    ) -> DNSRecord:
+        host: str,
+        request: DNSRecord,
+        handler: DNSHandler,
+    ):
         if match(cls.regex, host):
-            reply = cls.get_answers(reply, _type, host, cls.answers)
+            reply = cls.get_answers(reply, _type, host, cls.answers, handler)
             if reply.rr:
                 return reply
 
         key = cls.to_key(host, _type)
         ans = cls.query_db(key)
 
-        if ans:  # Check if ans is non-empty
+        if len(ans) > 0:
             ttl = cls.DB.ttl(key)
-            answers = list(map(lambda x: Answer(_type, x, ttl), ans))
-            # Convert map to list
+            answers = map(lambda x: Answer(_type, x, ttl), ans)
             try:
-                return cls.get_answers(reply, _type, host, answers)
-            except Exception as e:  # Catch only general exceptions
+                return cls.get_answers(reply, _type, host, answers, handler)
+            except BaseException as e:
                 print(f"error with host {host}\n{e}")
         return reply
 
-    @classmethod
-    def initialize(cls):
-        cls.DB = Redis(os.getenv('REDIS_HOST'),
-                       port=int(os.getenv('REDIS_PORT')),
-                       decode_responses=True)
+        # # no direct zone so look for an SOA record for a higher level zone
+        # for record in Record.records:
+        #     if record.sub_match(request.q):
+        #         reply.add_answer(record.rr)
+
+        # if reply.rr:
+        #     print(f"found higher level SOA resource for {request.q.qname}[{type_name}]")
+        #     return reply
 
     @classmethod
-    def clean_host(cls, host: str) -> str:
+    def insert(cls): ...
+
+    @classmethod
+    def initialize(cls):
+        cls.DB = Redis(REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+
+    @classmethod
+    def clean_host(cls, host: str):
         return host.removesuffix(".")
