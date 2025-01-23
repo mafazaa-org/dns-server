@@ -5,13 +5,10 @@ from dnslib import QTYPE, RR
 from dnslib.dns import DNSRecord
 from dnslib.server import DNSHandler
 from redis import Redis
-from dotenv import load_dotenv
 from .record_type import RecordType
 from .answer import Answer
 from re import match
 import os
-
-load_dotenv()
 
 REDIS_HOST = os.getenv('REDIS_HOST')
 REDIS_PORT = os.getenv('REDIS_PORT')

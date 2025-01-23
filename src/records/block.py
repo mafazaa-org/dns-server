@@ -5,10 +5,7 @@ from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from re import match
 from requests import get
-from dotenv import load_dotenv
 import os
-
-load_dotenv()
 
 DB_ADDR = os.getenv('DB_ADDR')
 LEVEL = os.getenv('LEVEL')

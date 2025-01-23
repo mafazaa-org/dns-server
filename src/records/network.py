@@ -8,10 +8,7 @@ from src.constants import (
     DEFAULT_PORT,
     PROXY_SERVER_TIMEOUT,
 )
-from dotenv import load_dotenv
 import os
-
-load_dotenv()
 
 UPSTREAM = os.getenv('UPSTREAM')
 PUBLIC_DNS = os.getenv('PUBLIC_DNS')
