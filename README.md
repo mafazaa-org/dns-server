@@ -49,7 +49,7 @@ This is how to do it using opendns:
 ### Environment Variables
 
 #### Overview
-    The .env file is used to set environment variables that configure the operation of the application. These variables are used to define settings such as server addresses, database connections, and operational levels, which can be accessed throughout the application to maintain flexibility and ease of deployment.
+The .env file is used to set environment variables that configure the operation of the application. These variables are used to define settings such as server addresses, database connections, and operational levels, which can be accessed throughout the application to maintain flexibility and ease of deployment.
 
 #### Environment Variables
 
