@@ -54,55 +54,53 @@ This is how to do it using opendns:
 #### Environment Variables
 
 ##### UPSTREAM
-        Specifies the upstream DNS server to which DNS queries are forwarded if the local server cannot resolve them. Locally, it is high-dns.mafazaa.com or low-dns.mafazaa.com but it is open DNS in production phase. An exanple for that is 'UPSTREAM=high-dns.mafazaa.com'. This allows the application to leverage external DNS servers for queries that it does not handle directly, improving responsiveness and capability.
+Specifies the upstream DNS server to which DNS queries are forwarded if the local server cannot resolve them. Locally, it is high-dns.mafazaa.com or low-dns.mafazaa.com but it is OpenDNS in production phase. An exanple for that is
+
+    UPSTREAM=high-dns.mafazaa.com
+
+This allows the application to leverage external DNS servers for queries that it does not handle directly, improving responsiveness and capability.
 
 ##### PUBLIC_DNS
-        1. Description:
-            The IP address of a public DNS server that can be used for queries. The example below shows the PUBLIC_DNS (8.8.8.8) which is Google's Public DNS Server
-        2. Example Value:
-            'PUBLIC_DNS=8.8.8.8'
-        3. Purpose:
-            Public DNS servers like this one can be used to resolve DNS queries that the local server cannot answer, acting as a fallback.
+The IP address of a public DNS server that can be used for instead of OpenDNS since sending unlimited requests to OpenDNS requires subscription. The example below shows the PUBLIC_DNS (8.8.8.8) which is Google's Public DNS Server. The code below is an example of identifying an IP address for public DNS server
+
+    PUBLIC_DNS=8.8.8.8
+
+When we this code is executed, the device requests from Google whether a specific IP address exists. If so, the device checks if that IP address will be blocked or not.
 
 ##### DB_ADDR
-        1. Description:
-            The URL of the database that the application will connect to, which is a large databese in production phase.
-        2. Example Value:
-            'DB_ADDR=http://localhost:1212'
-        3. Purpose:
-            This variable specifies where the application will find the database server, enabling support for features that involve persistent storage or caching of data.
+The URL of the database that the application will connect to, which is a large databese in production phase.
+
+    DB_ADDR=http://localhost:1212
+
+This variable specifies where the application will find the database server, enabling support for features that involve persistent storage or caching of data.
 
 ##### LEVEL
-        1. Description:
-            Represents security level of the server. Low level DNS only blocks Pornography while high level DNS bloks blocks Pornography and other websites like Netflix and spotify.
-        2. Example Value:
-            'LEVEL=high'
-        3. Purpose:
-            It's purpose is to check .
+Represents security level of the server. Low level DNS only blocks Pornography while high level DNS bloks blocks Pornography and other websites like Netflix and spotify.
+
+    LEVEL=high
+
+It's purpose is to check .
             
 ##### REDIS_PORT
-        1. Description:
-            The port used for establishing a connection to the Redis database.
-        2. Example Value:
-            'REDIS_PORT=6379'
-        3. Purpose:
-            This specifies the port through which the application communicates with Redis, a commonly used in-memory store for caching and rapid data retrieval.
+The port used for establishing a connection to the Redis database.
+
+    REDIS_PORT=6379
+
+This specifies the port through which the application communicates with Redis, a commonly used in-memory store for caching and rapid data retrieval.
 
 ##### REDIS_HOST
-        1. Description:
-            The hostname or IP address of the Redis database server.
-        2. Example Value:
-            'REDIS_HOST=localhost'
-        3. Purpose:
-            This variable allows the application to know where the Redis service is hosted, facilitating connections to it for data retrieval and storage.
+The hostname or IP address of the Redis database server.
+
+    REDIS_HOST=localhost
+
+This variable allows the application to know where the Redis service is hosted, facilitating connections to it for data retrieval and storage.
 
 ##### SERVER_HOSTNAME
-        1. Description:
-            The hostname of the DNS server itself.
-        2. Example Value:
-            'SERVER_HOSTNAME=localhost'
-        3. Purpose:
-            This may be used in logging, providing information about the server’s identity in various messages and responses, or possibly in responses to queries.
+The hostname of the DNS server itself.
+
+    SERVER_HOSTNAME=localhost
+
+This may be used in logging, providing information about the server’s identity in various messages and responses, or possibly in responses to queries.
 
 #### Usage in Application
 These environment variables are loaded into the application at runtime using the dotenv library. Here's how they typically work in context:
