@@ -75,11 +75,11 @@ The URL of the database that the application will connect to, which is a large d
 This variable specifies where the application will find the database server, enabling support for features that involve persistent storage or caching of data.
 
 ##### LEVEL
-Represents security level of the server. Low level DNS only blocks Pornography while high level DNS bloks blocks Pornography and other websites like Netflix and spotify.
+Represents security level of the server. Low level DNS only blocks Pornography, and inappropriate cartoons and comics websites while high level DNS bloks other websites like Netflix and spotify along with the those mentioned bafore.
 
     LEVEL=high
 
-It's purpose is to check .
+It's purpose is to ensure that specified IP addresses are blocked.
             
 ##### REDIS_PORT
 The port used for establishing a connection to the Redis database.
