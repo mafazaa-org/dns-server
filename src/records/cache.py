@@ -1,8 +1,11 @@
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from requests import post
-from src.env import DB_ADDR, LEVEL, SERVER_HOSTNAME
+import os
 
+DB_ADDR = os.getenv('DB_ADDR')
+LEVEL = os.getenv('LEVEL')
+SERVER_HOSTNAME = os.getenv('SERVER_HOSTNAME')
 
 class Cache(Record):
 
