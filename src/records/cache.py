@@ -1,7 +1,10 @@
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from requests import post
-from src.constants import DB_ADDR, LEVEL, SERVER_HOSTNAME
+from src.constants import LEVEL, SERVER_HOSTNAME
+from src.db.zones import Zones
+from src.db.block import Block
+from src.db.group import Group
 
 
 class Cache(Record):
@@ -12,12 +15,11 @@ class Cache(Record):
     @classmethod
     def initialize(cls):
         super().initialize()
+        
+        groups: list[Group] = [Zones(LEVEL), Block(LEVEL)]
 
-        res = post(
-            f"{DB_ADDR}/update/redis?level={LEVEL}&server={SERVER_HOSTNAME}"
-        ).json()
-        if res["status"] != "success":
-            raise Exception("Couldn't fetch data from db")
+        for group in groups:
+            group.insert_values(Record.DB)
 
         return True
 

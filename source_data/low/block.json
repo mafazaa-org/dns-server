@@ -1,0 +1,34 @@
+{
+	"list": [
+		"motherless.com",
+		"4chan.com",
+		"surfshark.com",
+		"privateinternetaccess.com",
+		"mullvad.net",
+		"www.tunnelbear.com"
+	],
+	"regex": {
+		"contains": [
+			"porn",
+			"sex",
+			"xnxx",
+			"xvideos",
+			"strip",
+			"sweet(chicks|kisses|xladies)",
+			"phncdn",
+			"undress",
+			"sxccdn",
+			"deviantart",
+			"vpn",
+			"adsystem",
+			"anime",
+			"webtoon",
+			"beer",
+			"lgbt",
+			"likee",
+			"kwai",
+			"(wmail|fairu|bideo|privatproxy|ahoravideo)-(endpoint|blog|chat|cdn)"
+		],
+		"subdomains": ["ads?"]
+	}
+}

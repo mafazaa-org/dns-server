@@ -70,14 +70,6 @@ The IP address of a public DNS server that can be used for instead of OpenDNS si
 
 When we this code is executed, the device requests from Google whether a specific IP address exists. If so, the device checks if that IP address will be blocked or not.
 
-##### DB_ADDR
-
-The URL of the database that the application will connect to, which is a large databese in production phase.
-
-    DB_ADDR=http://localhost:1212
-
-This variable specifies where the application will find the database server, enabling support for features that involve persistent storage or caching of data.
-
 ##### LEVEL
 
 Represents security level of the server. Low level DNS only blocks Pornography, and inappropriate cartoons and comics websites while high level DNS bloks other websites like Netflix and spotify along with the those mentioned bafore.

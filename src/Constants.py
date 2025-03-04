@@ -5,7 +5,6 @@ load_dotenv()
 
 DEFAULT_PORT = 53
 PROXY_SERVER_TIMEOUT = 5
-DB_ADDR = getenv('DB_ADDR')
 LEVEL = getenv('LEVEL')
 SERVER_HOSTNAME = getenv('SERVER_HOSTNAME')
 REDIS_PORT = getenv('REDIS_PORT')

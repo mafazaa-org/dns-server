@@ -1,0 +1,21 @@
+{
+	"list": [],
+	"regex": {
+		"contains": [
+			"tiktok",
+			"netflix",
+			"egybest",
+			"cimaclub",
+			"imdb",
+			"cinema",
+			"watch",
+			"tv",
+			"film",
+			"movie",
+			"spotify",
+			"soundcloud",
+			"music(al)?"
+		],
+		"subdomains": []
+	}
+}
