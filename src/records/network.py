@@ -7,14 +7,10 @@ from dnslib.server import DNSHandler
 from src.constants import (
     DEFAULT_PORT,
     PROXY_SERVER_TIMEOUT,
+    UPSTREAM,
+    PUBLIC_DNS
 )
-import os
 
-UPSTREAM = os.getenv('UPSTREAM')
-PUBLIC_DNS = os.getenv('PUBLIC_DNS')
-
-# constants.py: DEFAULT_PORT, PROXY_SERVER_TIMEOUT
-# .env: UPSTREAM, PUBLIC_DNS
 
 
 class Network(Record):

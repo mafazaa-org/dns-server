@@ -1,11 +1,8 @@
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from requests import post
-import os
+from src.constants import DB_ADDR, LEVEL, SERVER_HOSTNAME
 
-DB_ADDR = os.getenv('DB_ADDR')
-LEVEL = os.getenv('LEVEL')
-SERVER_HOSTNAME = os.getenv('SERVER_HOSTNAME')
 
 class Cache(Record):
 
@@ -15,6 +12,7 @@ class Cache(Record):
     @classmethod
     def initialize(cls):
         super().initialize()
+
         res = post(
             f"{DB_ADDR}/update/redis?level={LEVEL}&server={SERVER_HOSTNAME}"
         ).json()

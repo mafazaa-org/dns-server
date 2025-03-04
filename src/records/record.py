@@ -8,10 +8,10 @@ from redis import Redis
 from .record_type import RecordType
 from .answer import Answer
 from re import match
-import os
+from os import getenv
 
-REDIS_HOST = os.getenv('REDIS_HOST')
-REDIS_PORT = os.getenv('REDIS_PORT')
+REDIS_HOST = getenv('REDIS_HOST')
+REDIS_PORT = getenv('REDIS_PORT')
 
 # REDIS_HOST, REDIS_PORT
 
