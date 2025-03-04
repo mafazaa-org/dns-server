@@ -44,3 +44,5 @@ class testCache(TestCase):
             r.lrange("www.google.com:5", 0, -1)[0], "forcesafesearch.google.com"
         )
         self.assertEqual(r.ttl("www.google.com:5"), 300)
+
+    def test_multiple_inserts(self): ...
