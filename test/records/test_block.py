@@ -1,7 +1,7 @@
 from unittest import TestCase
-from src.records.block import Block, TYPE_LOOKUP, MAX_TTL
-from src.records.cache import Cache
-from src.records.record import Record, DNSRecord
+from app.records.block import Block, TYPE_LOOKUP, MAX_TTL
+from app.records.cache import Cache
+from app.records.record import Record, DNSRecord
 
 
 req_types = ["A", "AAAA", "NS", "MX", "TXT"]

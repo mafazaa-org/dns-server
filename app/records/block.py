@@ -5,8 +5,8 @@ from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from re import match
 from requests import get
-from src.constants import LEVEL
-from src.db.block import Block as Block_db
+from app.constants import LEVEL
+from app.db.block import Block as Block_db
 
 TYPE_LOOKUP = {
     "A": QTYPE.A,

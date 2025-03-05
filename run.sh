@@ -5,4 +5,4 @@ if [ $? == 0 ]; then
 fi
 sudo tmux new-session -d -s server
 
-sudo tmux send-keys "python3 src/main.py $branch" C-m
+sudo tmux send-keys "python3 app/main.py $branch" C-m

@@ -1,4 +1,4 @@
-from src.records.answer import Answer, RR, TYPE_LOOKUP, DEFAULT_TTL
+from app.records.answer import Answer, RR, TYPE_LOOKUP, DEFAULT_TTL
 from unittest import TestCase, main
 
 

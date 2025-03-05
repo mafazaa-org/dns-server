@@ -1,8 +1,8 @@
 from unittest import TestCase
-from src.records.network import Network, DNSRecord
-from src.records.record import Record
-from src.records.cache import Cache
-from src.records.block import TYPE_LOOKUP
+from app.records.network import Network, DNSRecord
+from app.records.record import Record
+from app.records.cache import Cache
+from app.records.block import TYPE_LOOKUP
 
 
 class DNSHandlerMock:

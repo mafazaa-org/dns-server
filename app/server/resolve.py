@@ -1,9 +1,9 @@
 from dnslib import DNSRecord, QTYPE, DNSQuestion
 from dnslib.server import DNSHandler
-from src.records.record import Record
-from src.records.block import Block
-from src.records.cache import Cache
-from src.records.network import Network
+from app.records.record import Record
+from app.records.block import Block
+from app.records.cache import Cache
+from app.records.network import Network
 
 RecordClasses: list[Record] = [Cache, Block, Network]
 

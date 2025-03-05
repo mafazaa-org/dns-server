@@ -1,6 +1,6 @@
-from src.records.record import Record
-from src.records.answer import Answer
-from src.records.cache import Cache
+from app.records.record import Record
+from app.records.answer import Answer
+from app.records.cache import Cache
 from dnslib import DNSRecord
 from unittest import TestCase
 

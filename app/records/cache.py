@@ -1,10 +1,10 @@
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from requests import post
-from src.constants import LEVEL, SERVER_HOSTNAME
-from src.db.zones import Zones
-from src.db.block import Block
-from src.db.group import Group
+from app.constants import LEVEL, SERVER_HOSTNAME
+from app.db.zones import Zones
+from app.db.block import Block
+from app.db.group import Group
 
 
 class Cache(Record):
