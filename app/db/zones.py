@@ -26,6 +26,10 @@ class Zones(Group):
         self.name = "zones"
         super().__init__(level)
         self.list = self.low_raw
+        self.list.append({
+		"host": "check.ainaa.mafazaa.com",
+		"answers": [{ "type": "CNAME", "answer": level + ".check.ainaa.mafazaa.com" }]
+	},)
         self.merge_high()
 
     @Group.merge_high_decorator

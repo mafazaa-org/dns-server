@@ -27,6 +27,8 @@
 			"lgbt",
 			"likee",
 			"kwai",
+			"spam",
+			"sender(base|score)",
 			"(wmail|fairu|bideo|privatproxy|ahoravideo)-(endpoint|blog|chat|cdn)"
 		],
 		"subdomains": ["ads?"]
