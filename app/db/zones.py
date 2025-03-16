@@ -27,8 +27,8 @@ class Zones(Group):
         super().__init__(level)
         self.list = self.low_raw
         self.list.append({
-		"host": "check.ainaa.mafazaa.com",
-		"answers": [{ "type": "CNAME", "answer": level + ".check.ainaa.mafazaa.com" }]
+		"host": level + ".check.ainaa.mafazaa.com",
+		"answers": [{ "type": "CNAME", "answer": "cname.vercel-dns.com" }]
 	},)
         self.merge_high()
 
