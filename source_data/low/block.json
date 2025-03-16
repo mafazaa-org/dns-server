@@ -5,13 +5,16 @@
 		"surfshark.com",
 		"privateinternetaccess.com",
 		"mullvad.net",
-		"www.tunnelbear.com"
+		"www.tunnelbear.com",
+		"men.com"
 	],
 	"regex": {
 		"contains": [
 			"porn",
 			"sex",
 			"xnxx",
+			"nude",
+			"undress",
 			"xvideos",
 			"strip",
 			"sweet(chicks|kisses|xladies)",

@@ -48,7 +48,13 @@ class Network(Record):
         _type: RecordType,
         handler: DNSHandler,
     ):
-        server = PUBLIC_DNS if Record.DB.exists(host) else UPSTREAM
+        if Record.DB.exists(host):
+            server = PUBLIC_DNS.pop(0)
+            PUBLIC_DNS.append(server)
+        else:
+            server = UPSTREAM
+            
+        print(server)
         try:
             if handler.protocol == "udp":
                 proxy_r = request.send(
