@@ -9,13 +9,12 @@
 			"imdb",
 			"cinema",
 			"watch",
-			"tv",
 			"film",
 			"movie",
 			"spotify",
 			"soundcloud",
 			"music(al)?"
 		],
-		"subdomains": []
+		"subdomains": ["tv"]
 	}
 }

@@ -79,7 +79,8 @@
 			"kwai",
 			"spam",
 			"sender(base|score)",
-			"(wmail|fairu|bideo|privatproxy|ahoravideo)-(endpoint|blog|chat|cdn)"
+			"(wmail|fairu|bideo|privatproxy|ahoravideo)-(endpoint|blog|chat|cdn)",
+			"proxy"
 		],
 		"subdomains": ["ads?"]
 	}

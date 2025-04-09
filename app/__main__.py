@@ -8,6 +8,7 @@ def main():
     server = DnsServer()
 
     Record.initialize()
+    Record.DB.flushall()
     Cache.initialize()
     Block.initialize()
 
