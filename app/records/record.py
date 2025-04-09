@@ -22,6 +22,7 @@ class Record:
     to_key = lambda host, _type: f"{host}:{_type}"
     DB: Redis
     query_db = lambda key: Record.DB.lrange(key, 0, -1)
+    name : str
 
     regex: str
     answers: list[Answer]
@@ -54,10 +55,13 @@ class Record:
         handler: DNSHandler,
     ):
         if match(cls.regex, host):
+            # print(host, "got matched with regex of ", cls.name)
             reply = cls.get_answers(reply, _type, host, cls.answers, handler)
             if reply.rr:
                 return reply
 
+        # print(host, "not matched with regex ", cls.name)
+        
         key = cls.to_key(host, _type)
         ans = cls.query_db(key)
 

@@ -29,7 +29,8 @@ TYPE_LOOKUP = {
 
 class Block(Record):
     global DB
-
+    
+    name = "Block"
     answers = [
         Answer(TYPE_LOOKUP["A"], "0.0.0.0", MAX_TTL),
         Answer(TYPE_LOOKUP["AAAA"], "::", MAX_TTL),
@@ -68,6 +69,9 @@ class Block(Record):
         handler: DNSHandler,
     ):
         if match(cls.regex, host) or Record.DB.get(host) == "1":
+            if match(cls.regex, host):
+            #     print(host, "got matched with regex of", cls.name)
+            # print(host, "got matched in", cls.name)
             return cls.get_answers(reply, _type, host, handler)
         return reply
 

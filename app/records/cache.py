@@ -11,7 +11,8 @@ class Cache(Record):
 
     regex = "(w{3}\.)google\..+"
     answers = [Answer(5, "forcesafesearch.google.com", MAX_TTL)]
-
+    name = "Cache"
+    
     @classmethod
     def initialize(cls):
         super().initialize()

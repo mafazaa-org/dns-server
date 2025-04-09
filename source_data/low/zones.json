@@ -114,5 +114,9 @@
 	{
 		"host": "duckduckgo.com",
 		"answers": [{ "type": "CNAME", "answer": "safe.duckduckgo.com" }]
+	},
+	{
+		"host": "resource.inkryptvideos.com",
+		"answers": []
 	}
 ]

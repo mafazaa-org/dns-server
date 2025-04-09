@@ -15,7 +15,8 @@ from app.constants import (
 
 class Network(Record):
     table_name = None
-
+    name = "Network"
+    
     @classmethod
     def get_answers(
         cls, reply: DNSRecord, _type: str, host: str, handler: DNSHandler
