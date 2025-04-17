@@ -1,20 +1,42 @@
 {
-	"list": [],
-	"regex": {
-		"contains": [
-			"tiktok",
-			"netflix",
-			"egybest",
-			"cimaclub",
-			"imdb",
-			"cinema",
-			"watch",
-			"film",
-			"movie",
-			"spotify",
-			"soundcloud",
-			"music(al)?"
-		],
-		"subdomains": ["tv"]
-	}
+  "list": [
+    "byteglb.com",
+    "bytedance.com",
+    "sgsnssdk.com",
+    "muscdn.com",
+    "musemuse.cn",
+    "musical.ly",
+    "musically.ly",
+    "ibytedtos.com",
+    "isnssdk.com",
+    "shah4u.net",
+    "egydeadw.sbs"
+  ],
+  "regex": {
+    "contains": [
+      "tiktok",
+      "spotify",
+      "soundcloud",
+      "music(al)?",
+      "movie",
+      "movi",
+      "film",
+      "cinema",
+      "cima",
+      "drama",
+      "watch",
+      "imdb",
+      "netflix",
+      "egybest",
+      "ttcdn",
+      "pstatp",
+      "byte(img|oversea|dance)",
+      "singer",
+      "songs?",
+      "lyrics?",
+      "popstar",
+      "mp3"
+    ],
+    "subdomains": ["tv"]
+  }
 }
