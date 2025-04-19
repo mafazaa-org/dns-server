@@ -25,4 +25,5 @@ class Block(Group):
         }
 
     def get_regex(self):
-        return f"(.*({'|'.join(self.raw["regex"]["contains"])}).*)|((.+\.)?({'|'.join(self.raw["regex"]["subdomains"])})\..+)"
+        return "(.*(" + '|'.join(self.raw["regex"]["contains"]) + ").*)|((.+\.)?(" + '|'.join(self.raw["regex"]["subdomains"]) + ")\..+)"
+
