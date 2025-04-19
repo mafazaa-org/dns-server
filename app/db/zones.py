@@ -41,7 +41,7 @@ class Zones(Group):
         key = json['host']
         r.set(key, "0")
         for answer in json["answers"]:
-            key = f"{json["host"]}:{TYPE_LOOKUP[answer["type"]]}"
+            key = json["host"] + ":" + TYPE_LOOKUP[answer["type"]]
             if not key in done_keys:
                 r.delete(key)
                 done_keys.append(key)
