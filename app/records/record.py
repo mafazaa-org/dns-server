@@ -62,6 +62,22 @@ class Record:
 
         # print(host, "not matched with regex ", cls.name)
         
+        ## Get cname answer
+        cname_key = cls.to_key(host, 5)
+        cname_ans = cls.query_db(cname_key)
+        cname_ttl = cls.DB.ttl(cname_key)
+        cname_answers = map(lambda x: Answer(5, x, cname_ttl), cname_ans)
+        
+        if len(cname_ans) > 0:
+            ttl = cls.DB.ttl(cname_key)
+            answers = map(lambda x: Answer(5, x, cname_ttl), cname_ans)
+            try:
+                reply = cls.get_answers(reply, 5, host, answers, handler)
+            except BaseException as e:
+                print(f"error with host {host}\n{e}")
+        
+        
+        ## Ger answer        
         key = cls.to_key(host, _type)
         ans = cls.query_db(key)
 
