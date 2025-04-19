@@ -1,5 +1,9 @@
-dnslib==0.9.25
-typing_extensions==4.12.2
-redis==5.0.8
-python_dotenv==1.0.1
+certifi==2025.1.31
+charset-normalizer==3.4.1
+dnslib==0.9.26
+idna==3.10
+python-dotenv==1.1.0
+redis==5.2.1
 requests==2.32.3
+typing_extensions==4.13.2
+urllib3==2.4.0

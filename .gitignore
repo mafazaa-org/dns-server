@@ -5,4 +5,4 @@ __pycache__
 *hosts*
 data
 .env
-dump.rdp
+*dump.rdp*

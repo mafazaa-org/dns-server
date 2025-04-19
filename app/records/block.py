@@ -69,9 +69,6 @@ class Block(Record):
         handler: DNSHandler,
     ):
         if match(cls.regex, host) or Record.DB.get(host) == "1":
-            if match(cls.regex, host):
-            #     print(host, "got matched with regex of", cls.name)
-            # print(host, "got matched in", cls.name)
             return cls.get_answers(reply, _type, host, handler)
         return reply
 
