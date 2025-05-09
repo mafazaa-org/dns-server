@@ -68,6 +68,7 @@ class Block(Record):
         request: DNSRecord,
         handler: DNSHandler,
     ):
+        #TODO fix this to clean host
         if match(cls.regex, host) or Record.DB.get(host) == "1":
             return cls.get_answers(reply, _type, host, handler)
         return reply
