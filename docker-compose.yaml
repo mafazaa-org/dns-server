@@ -1,0 +1,33 @@
+name: dns-server
+
+services:
+    server:
+        hostname: primary.high-dns.mafazaa.com
+        networks:
+            - dns-network
+        build: .
+        ports:
+            - 53:53/tcp
+            - 53:53/udp
+        environment:
+            PUBLIC_DNS: 8.8.8.8,8.8.4.4,9.9.9.9,149.112.112.112,1.1.1.1,94.140.14.14,94.140.15.15
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+            UPSTREAM: high-dns.mafazaa.com
+            SERVER_HOSTNAME: localhost
+            LEVEL: high
+        depends_on:
+            - redis
+        restart: on-failure:5
+    redis:
+        networks:
+            - dns-network
+        image: redis:latest
+        pull_policy: missing
+        ports:
+            - 6379:6379
+        restart: on-failure:5
+        volumes:
+            - ./db:/data
+networks:
+    dns-network:
