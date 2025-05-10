@@ -62,14 +62,6 @@ Specifies the upstream DNS server to which DNS queries are forwarded if the loca
 
 This allows the application to leverage external DNS servers for queries that it does not handle directly, improving responsiveness and capability.
 
-##### PUBLIC_DNS
-
-The IP address of a public DNS server that can be used for instead of OpenDNS since sending unlimited requests to OpenDNS requires subscription. The example below shows the PUBLIC_DNS (8.8.8.8) which is Google's Public DNS Server. The code below is an example of identifying an IP address for public DNS server
-
-    PUBLIC_DNS=8.8.8.8
-
-When we this code is executed, the device requests from Google whether a specific IP address exists. If so, the device checks if that IP address will be blocked or not.
-
 ##### LEVEL
 
 Represents security level of the server. Low level DNS only blocks Pornography, and inappropriate cartoons and comics websites while high level DNS bloks other websites like Netflix and spotify along with the those mentioned bafore.

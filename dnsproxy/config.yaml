@@ -1,0 +1,12 @@
+listen-addrs:
+    - "0.0.0.0"
+cache: true
+cache-min-ttl: 600
+port: 0
+upstream:
+    - "server:53"
+tls-port: [853]
+https-port: [443]
+http3: true
+tls-crt: /etc/letsencrypt/live/high-dns.mafazaa.com/fullchain.pem
+tls-key: /etc/letsencrypt/live/high-dns.mafazaa.com/privkey.pem

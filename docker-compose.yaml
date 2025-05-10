@@ -10,7 +10,6 @@ services:
             - 53:53/tcp
             - 53:53/udp
         environment:
-            PUBLIC_DNS: 8.8.8.8,8.8.4.4,9.9.9.9,149.112.112.112,1.1.1.1,94.140.14.14,94.140.15.15
             REDIS_HOST: redis
             REDIS_PORT: 6379
             UPSTREAM: high-dns.mafazaa.com
@@ -29,5 +28,19 @@ services:
         restart: on-failure:5
         volumes:
             - ./db:/data
+    adguard_doh:
+        image: adguard/dnsproxy:v0.75.4
+        networks:
+            - dns-network
+        depends_on:
+            - redis
+            - server
+        volumes:
+            - ./dnsproxy/config.yaml:/opt/dnsproxy/config.yaml
+            - ./dnsproxy/fullchain.pem:/etc/letsencrypt/live/high-dns.mafazaa.com/fullchain.pem
+            - ./dnsproxy/privkey.pem:/etc/letsencrypt/live/high-dns.mafazaa.com/privkey.pem
+        ports:
+            - 443:443
+            - 853:853
 networks:
     dns-network:

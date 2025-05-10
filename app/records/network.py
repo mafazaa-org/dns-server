@@ -8,10 +8,9 @@ from app.constants import (
     DEFAULT_PORT,
     PROXY_SERVER_TIMEOUT,
     UPSTREAM,
-    PUBLIC_DNS
 )
 
-
+PUBLIC_DNS = ["8.8.8.8","8.8.4.4","9.9.9.9","149.112.112.112","1.1.1.1","94.140.14.14","94.140.15.15"]
 
 class Network(Record):
     table_name = None
