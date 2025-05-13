@@ -91,6 +91,6 @@ class Block(Record):
 
     @classmethod
     def initialize(cls):
-        super().initialize()
+        # super().initialize()
         cls.regex = Block_db(LEVEL).get_regex()
         return True

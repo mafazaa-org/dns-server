@@ -104,7 +104,11 @@ class Record:
 
     @classmethod
     def initialize(cls):
+        print("initializing redis cache")
         cls.DB = Redis(REDIS_HOST, port=REDIS_PORT, decode_responses=True)
+        cls.DB.flushall()
+        print("done initializing redis cache")
+
 
     @classmethod
     def clean_host(cls, host: str):

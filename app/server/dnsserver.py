@@ -12,14 +12,15 @@ class DnsServer:
         self.tcp_server: LibDNSServer | None = None
 
     def start(self):
-        print(f"starting DNS server on port {DEFAULT_PORT}")
         resolver = ProxyResolver()
 
-        self.udp_server = LibDNSServer(resolver, port=DEFAULT_PORT)
-        self.tcp_server = LibDNSServer(resolver, port=DEFAULT_PORT, tcp=True)
+        self.udp_server = LibDNSServer(resolver,"0.0.0.0", port=DEFAULT_PORT)
+        self.tcp_server = LibDNSServer(resolver,"0.0.0.0", port=DEFAULT_PORT, tcp=True)
 
         self.udp_server.start_thread()
         self.tcp_server.start_thread()
+        print(f"started DNS server on port {DEFAULT_PORT}")
+        
 
     def stop(self):
         self.udp_server.stop()
@@ -40,5 +41,5 @@ class DnsServer:
         except KeyboardInterrupt:
             pass
         finally:
-            print("stopping DNS server")
+            print("stopping DNS server...")
             self.stop()

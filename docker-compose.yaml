@@ -7,40 +7,57 @@ services:
             - dns-network
         build: .
         ports:
-            - 53:53/tcp
-            - 53:53/udp
+            - "53:53/udp"
+            - "53:53/tcp"
         environment:
-            REDIS_HOST: redis
-            REDIS_PORT: 6379
-            UPSTREAM: high-dns.mafazaa.com
-            SERVER_HOSTNAME: localhost
-            LEVEL: high
-        depends_on:
-            - redis
+            - REDIS_HOST=${REDIS_HOST}
+            - REDIS_PORT=${REDIS_PORT}
+            - UPSTREAM=${UPSTREAM}
+            - LEVEL=${LEVEL}
         restart: on-failure:5
+        depends_on:
+            redis:
+                restart: true
+                condition: service_healthy
+                required: true
     redis:
         networks:
             - dns-network
         image: redis:latest
         pull_policy: missing
         ports:
-            - 6379:6379
+            - "6379:6379"
         restart: on-failure:5
         volumes:
             - ./db:/data
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 5s
     adguard_doh:
         image: adguard/dnsproxy:v0.75.4
         networks:
             - dns-network
         depends_on:
-            - redis
-            - server
+            redis:
+                restart: true
+                condition: service_healthy
+                required: true
+            server:
+                restart: true
+                condition: service_healthy
+                required: true
+        restart: on-failure:5
         volumes:
             - ./dnsproxy/config.yaml:/opt/dnsproxy/config.yaml
             - ./dnsproxy/fullchain.pem:/etc/letsencrypt/live/high-dns.mafazaa.com/fullchain.pem
             - ./dnsproxy/privkey.pem:/etc/letsencrypt/live/high-dns.mafazaa.com/privkey.pem
         ports:
-            - 443:443
-            - 853:853
+            - "443:443"
+            - "443:443/udp"
+            - "853:853"
+            - "853:853/udp"
 networks:
     dns-network:

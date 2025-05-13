@@ -86,14 +86,6 @@ The hostname or IP address of the Redis database server.
 
 This variable allows the application to know where the Redis service is hosted, facilitating connections to it for data retrieval and storage.
 
-##### SERVER_HOSTNAME
-
-The hostname of the DNS server itself.
-
-    SERVER_HOSTNAME=localhost
-
-This may be used in logging, providing information about the server’s identity in various messages and responses, or possibly in responses to queries.
-
 #### Usage in Application
 
 These environment variables are loaded into the application at runtime using the dotenv library. Here's how they typically work in context:

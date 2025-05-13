@@ -1,7 +1,7 @@
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from requests import post
-from app.constants import LEVEL, SERVER_HOSTNAME
+from app.constants import LEVEL
 from app.db.zones import Zones
 from app.db.block import Block
 from app.db.group import Group
@@ -15,13 +15,13 @@ class Cache(Record):
     
     @classmethod
     def initialize(cls):
-        super().initialize()
+        # super().initialize()
         
         groups: list[Group] = [Zones(LEVEL), Block(LEVEL)]
 
         for group in groups:
+            print("inserting values for", group.name)
             group.insert_values(Record.DB)
-
         return True
 
     @classmethod

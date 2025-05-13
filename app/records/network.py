@@ -53,7 +53,7 @@ class Network(Record):
             PUBLIC_DNS.append(server)
         else:
             server = UPSTREAM
-        
+        print(server, UPSTREAM, PUBLIC_DNS)
         try:
             if handler.protocol == "udp":
                 proxy_r = request.send(

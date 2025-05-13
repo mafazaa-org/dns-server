@@ -4,11 +4,10 @@ from .records.cache import Cache
 from .records.block import Block
 
 def main():
-
+    print("starting dns server...")
     server = DnsServer()
 
     Record.initialize()
-    Record.DB.flushall()
     Cache.initialize()
     Block.initialize()
 

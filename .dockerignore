@@ -6,3 +6,12 @@ __pycache__
 data
 .env
 *dump.rdp*
+test
+db
+dnsproxy
+.vscode
+.gitignore
+*.md
+*.yaml
+*.rdp
+*.bat
