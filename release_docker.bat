@@ -1,0 +1,1 @@
+gh release create %1 --generate-notes .\docker-compose.yaml#docker-compose.yaml .\dnsproxy\config.yaml#dnsproxy\config.yaml
