@@ -8,5 +8,5 @@ upstream:
 tls-port: [853]
 https-port: [443]
 http3: true
-tls-crt: /etc/letsencrypt/live/high-dns.mafazaa.com/fullchain.pem
-tls-key: /etc/letsencrypt/live/high-dns.mafazaa.com/privkey.pem
+tls-crt: /ssl/fullchain.pem
+tls-key: /ssl/privkey.pem

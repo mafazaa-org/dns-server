@@ -2,10 +2,11 @@ name: dns-server
 
 services:
     server:
-        hostname: primary.high-dns.mafazaa.com
+        hostname: $HOSTNAME
         networks:
             - dns-network
-        build: .
+        image: public.ecr.aws/c0y5g8k0/dns-server$ENV_NAME
+        pull_policy: missing
         ports:
             - "53:53/udp"
             - "53:53/tcp"
@@ -52,8 +53,7 @@ services:
         restart: on-failure:5
         volumes:
             - ./dnsproxy/config.yaml:/opt/dnsproxy/config.yaml
-            - ./dnsproxy/fullchain.pem:/etc/letsencrypt/live/high-dns.mafazaa.com/fullchain.pem
-            - ./dnsproxy/privkey.pem:/etc/letsencrypt/live/high-dns.mafazaa.com/privkey.pem
+            - /etc/letsencrypt/live/${HOSTNAME}:/ssl/
         ports:
             - "443:443"
             - "443:443/udp"
