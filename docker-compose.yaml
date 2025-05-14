@@ -37,7 +37,7 @@ services:
             timeout: 10s
             retries: 3
             start_period: 5s
-    adguard_doh:
+    adguard-doh:
         image: adguard/dnsproxy:v0.75.4
         networks:
             - dns-network
