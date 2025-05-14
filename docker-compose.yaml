@@ -2,7 +2,7 @@ name: dns-server
 
 services:
     server:
-        hostname: $HOSTNAME
+        hostname: $FQDN_HOSTNAME
         networks:
             - dns-network
         image: public.ecr.aws/c0y5g8k0/dns-server$ENV_NAME
@@ -53,7 +53,7 @@ services:
         restart: on-failure:5
         volumes:
             - ./dnsproxy/config.yaml:/opt/dnsproxy/config.yaml
-            - /etc/letsencrypt/live/${HOSTNAME}:/ssl/
+            - /etc/letsencrypt/live/${FQDN_HOSTNAME}:/ssl/
         ports:
             - "443:443"
             - "443:443/udp"
