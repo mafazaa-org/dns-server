@@ -118,5 +118,137 @@
 	{
 		"host": "resource.inkryptvideos.com",
 		"answers": []
+	},
+	{
+		"host": "mafazaa.com",
+		"answers": [
+			{
+				"type": "A",
+				"answer": "76.76.21.21"
+			},
+			{
+				"type": "TXT",
+				"answer": "v=spf1 include:zohomail.com ~all"
+			},
+			{
+				"type": "TXT",
+				"answer": "zoho-verification=zb54311423.zmverify.zoho.com"
+			}
+		]
+	},
+	{
+		"host": "_2ba8ea66a5ea534a08408f7808be3587.pamylka.mafazaa.com",
+		"answers": [
+			{
+				"type": "CNAME",
+				"answer": "_1ef4e43b33ab9e20170398ed716eb6ae.zfyfvmchrl.acm-validations.aws."
+			}
+		]
+	},
+	{
+		"host": "www.mafazaa.com",
+		"answers": [
+			{
+				"type": "CNAME",
+				"answer": "cname.vercel-dns.com"
+			}
+		]
+	},
+	{
+		"host": "api.mafazaa.com",
+		"answers": [
+			{
+				"type": "CNAME",
+				"answer": "cname.vercel-dns.com"
+			}
+		]
+	},
+	{
+		"host": "ainaa.mafazaa.com",
+		"answers": [
+			{
+				"type": "CNAME",
+				"answer": "cname.vercel-dns.com"
+			}
+		]
+	},
+	{
+		"host": "high-dns.mafazaa.com",
+		"answers": [
+			{
+				"type": "A",
+				"answer": "15.184.147.40"
+			},
+			{
+				"type": "A",
+				"answer": "15.184.182.221"
+			}
+		]
+	},
+	{
+		"host": "low-dns.mafazaa.com",
+		"answers": [
+			{
+				"type": "A",
+				"answer": "16.24.111.209"
+			},
+			{
+				"type": "A",
+				"answer": "16.24.202.94"
+			}
+		]
+	},
+	{
+		"host": "primary.high-dns.mafazaa.com",
+		"answers": [
+			{
+				"type": "A",
+				"answer": "15.184.147.40"
+			}
+		]
+	},
+	{
+		"host": "secondary.high-dns.mafazaa.com",
+		"answers": [
+			{
+				"type": "A",
+				"answer": "15.184.182.221"
+			}
+		]
+	},
+	{
+		"host": "primary.low-dns.mafazaa.com",
+		"answers": [
+			{
+				"type": "A",
+				"answer": "16.24.111.209"
+			}
+		]
+	},
+	{
+		"host": "secondary.low-dns.mafazaa.com",
+		"answers": [
+			{
+				"type": "A",
+				"answer": "16.24.202.94"
+			}
+		]
+	},
+	{
+		"host": "mafazaa.com",
+		"answers": [
+			{
+				"type": "MX",
+				"answer": "10 mx.zoho.com"
+			},
+			{
+				"type": "MX",
+				"answer": "20 mx2.zoho.com"
+			},
+			{
+				"type": "MX",
+				"answer": "50 mx3.zoho.com"
+			}
+		]
 	}
 ]

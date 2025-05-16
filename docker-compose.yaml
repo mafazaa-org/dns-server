@@ -15,7 +15,7 @@ services:
             - REDIS_PORT=${REDIS_PORT}
             - UPSTREAM=${UPSTREAM}
             - LEVEL=${LEVEL}
-        restart: on-failure:5
+        restart: always
         depends_on:
             redis:
                 restart: true
@@ -28,7 +28,7 @@ services:
         pull_policy: missing
         ports:
             - "6379:6379"
-        restart: on-failure:5
+        restart: always
         volumes:
             - ./db:/data
         healthcheck:
@@ -50,7 +50,7 @@ services:
                 restart: true
                 condition: service_healthy
                 required: true
-        restart: on-failure:5
+        restart: always
         volumes:
             - ./dnsproxy/config.yaml:/opt/dnsproxy/config.yaml
             - /etc/letsencrypt/live/${FQDN_HOSTNAME}/fullchain.pem:/ssl/fullchain.pem
