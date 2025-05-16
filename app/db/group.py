@@ -2,7 +2,7 @@ from redis import Redis
 from os.path import join
 from json import load, dump
 
-MAX_TTL = 4294967295
+MAX_TTL = 60 * 60
 
 
 class Group:

@@ -81,7 +81,7 @@ class Block(Record):
             "::ffff:9270:3d6a",
             "::ffff:146.112.61.104",
             "146.112.61.104",
-        ]
+        ] and not Record.DB.exists(host)
 
         Record.DB.set(
             host,
