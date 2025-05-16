@@ -48,9 +48,12 @@ class Network(Record):
         _type: RecordType,
         handler: DNSHandler,
     ):
-        if Record.DB.exists(host):
+        host_type = Record.DB.get(host)
+        if host_type == "0":
             server = PUBLIC_DNS.pop(0)
             PUBLIC_DNS.append(server)
+        elif host_type == "2":
+            return reply
         else:
             server = UPSTREAM
         try:
