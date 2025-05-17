@@ -7,6 +7,12 @@ services:
             - dns-network
         image: public.ecr.aws/c0y5g8k0/dns-server$ENV_NAME
         pull_policy: missing
+        logging:
+            driver: json-file
+            options:
+                max-size: "10m" # Maximum size of each log file
+                max-file: "3" # Maximum number of log files to keep
+                compress: "true" # Compress rotated log files to save space
         ports:
             - "53:53/udp"
             - "53:53/tcp"
@@ -31,6 +37,12 @@ services:
         restart: always
         volumes:
             - ./db:/data
+        logging:
+            driver: json-file
+            options:
+                max-size: "10m" # Maximum size of each log file
+                max-file: "3" # Maximum number of log files to keep
+                compress: "true" # Compress rotated log files to save space
         healthcheck:
             test: ["CMD", "redis-cli", "ping"]
             interval: 30s
@@ -51,6 +63,12 @@ services:
                 condition: service_healthy
                 required: true
         restart: always
+        logging:
+            driver: json-file
+            options:
+                max-size: "10m" # Maximum size of each log file
+                max-file: "3" # Maximum number of log files to keep
+                compress: "true" # Compress rotated log files to save space
         volumes:
             - ./dnsproxy/config.yaml:/opt/dnsproxy/config.yaml
             - /etc/letsencrypt/live/${FQDN_HOSTNAME}/fullchain.pem:/ssl/fullchain.pem
