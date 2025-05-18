@@ -10,7 +10,7 @@ services:
         deploy:
             resources:
                 limits:
-                    cpus: "0.5" # Limits to half a CPU core
+                    cpus: "0.4" # Limits to half a CPU core
                     memory: 512M # Often set together with CPU
         logging:
             driver: json-file
