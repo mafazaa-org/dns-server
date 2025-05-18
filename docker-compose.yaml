@@ -7,6 +7,11 @@ services:
             - dns-network
         image: public.ecr.aws/c0y5g8k0/dns-server$ENV_NAME
         pull_policy: missing
+        deploy:
+            resources:
+                limits:
+                    cpus: "0.5" # Limits to half a CPU core
+                    memory: 512M # Often set together with CPU
         logging:
             driver: json-file
             options:
