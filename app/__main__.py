@@ -2,9 +2,10 @@ from .server.dnsserver import DnsServer
 from .records.record import Record
 from .records.cache import Cache
 from .records.block import Block
+from .logger import logger
 
 def main():
-    print("starting dns server...")
+    logger.i('server', 'starting dns server')
     server = DnsServer()
 
     Record.initialize()

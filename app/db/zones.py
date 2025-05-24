@@ -39,7 +39,7 @@ class Zones(Group):
     def to_redis(self, r: Redis, json: dict):
         done_keys = []
         key = json['host']
-        r.set(key, "2")
+        r.set(key, "0")
         for answer in json["answers"]:
             key = json["host"] + ":" + str(TYPE_LOOKUP[answer["type"]])
             if not key in done_keys:

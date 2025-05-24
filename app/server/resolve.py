@@ -5,19 +5,18 @@ from app.records.record import Record
 from app.records.block import Block
 from app.records.cache import Cache
 from app.records.network import Network
+from ..logger import logger
 
 RecordClasses: list[Record] = [Cache, Block, Network]
 
 
-def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_time=True):
+def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, host: str, _type: int, res_data: dict, first_time=True):
     # get type name, reply and clean host
-    _type = request.q.qtype
-    host = Record.clean_host(request.q.qname.__str__())
 
     # for recordclass in recordclasses
     for RecordClass in RecordClasses:
         # query
-        reply: DNSRecord = RecordClass.query(reply, _type, host, request, handler)
+        reply: DNSRecord = RecordClass.query(reply, _type, host, request, handler, res_data)
         if not reply.rr:
             continue
 
@@ -32,10 +31,13 @@ def resolve(request: DNSRecord, reply: DNSRecord, handler: DNSHandler, first_tim
                     q=DNSQuestion(qname=rr.rdata.__str__(), qtype=request.q.qtype)
                 )
             except UnicodeError:
-                print("\n\n\nthere was an error while encoding\n\n\n")
+                logger.e('unicodeError', {
+                    "qname": host,
+                    "msg": "there was an error while encoding"
+                    }, handler=handler)
                 return reply
             cname_reply = q.reply()
-            cname_reply = resolve(q, cname_reply, handler, first_time=False)
+            cname_reply = resolve(q, cname_reply, handler,res_data, first_time=False)
             reply.rr.extend(cname_reply.rr)
 
         return reply

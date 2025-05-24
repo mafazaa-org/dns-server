@@ -4,6 +4,7 @@ from dnslib.server import DNSServer as LibDNSServer
 from app.server.proxy_resolver import ProxyResolver
 from app.constants import DEFAULT_PORT
 from time import sleep
+from ..logger import logger
 
 
 class DnsServer:
@@ -14,12 +15,13 @@ class DnsServer:
     def start(self):
         resolver = ProxyResolver()
 
-        self.udp_server = LibDNSServer(resolver,"0.0.0.0", port=DEFAULT_PORT)
-        self.tcp_server = LibDNSServer(resolver,"0.0.0.0", port=DEFAULT_PORT, tcp=True)
+        self.udp_server = LibDNSServer(resolver,"0.0.0.0", port=DEFAULT_PORT,logger=logger)
+        self.tcp_server = LibDNSServer(resolver,"0.0.0.0", port=DEFAULT_PORT, tcp=True, logger=logger)
 
+        
         self.udp_server.start_thread()
         self.tcp_server.start_thread()
-        print(f"started DNS server on port {DEFAULT_PORT}")
+        logger.i('server',f"started DNS server on port {DEFAULT_PORT}")
         
 
     def stop(self):
@@ -41,5 +43,5 @@ class DnsServer:
         except KeyboardInterrupt:
             pass
         finally:
-            print("stopping DNS server...")
+            logger.i('server',"stopping DNS server")
             self.stop()

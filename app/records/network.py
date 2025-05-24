@@ -36,8 +36,9 @@ class Network(Record):
         host: str,
         request: DNSRecord,
         handler: DNSHandler,
+        res_data: dict,
     ):
-        return cls.resolve(request, reply, host, _type, handler)
+        return cls.resolve(request, reply, host, _type, handler, res_data)
 
     @classmethod
     def resolve(
@@ -47,15 +48,17 @@ class Network(Record):
         host: str,
         _type: RecordType,
         handler: DNSHandler,
+        res_data: dict
     ):
         host_type = Record.DB.get(host)
         if host_type == "0":
             server = PUBLIC_DNS.pop(0)
             PUBLIC_DNS.append(server)
-        elif host_type == "2":
-            return reply
         else:
             server = UPSTREAM
+            
+        res_data["upstream"] = server
+        
         try:
             if handler.protocol == "udp":
                 proxy_r = request.send(

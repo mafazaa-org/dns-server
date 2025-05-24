@@ -1,10 +1,8 @@
-from dnslib import RR, QTYPE
-from dnslib.dns import DNSRecord
+from dnslib.dns import DNSRecord,RR, QTYPE
 from dnslib.server import DNSHandler
 from .record import Record, RecordType
 from .answer import Answer, MAX_TTL
 from re import match
-from requests import get
 from app.constants import LEVEL
 from app.db.block import Block as Block_db
 
@@ -67,9 +65,16 @@ class Block(Record):
         host: str,
         request: DNSRecord,
         handler: DNSHandler,
+        res_data,
     ):
         #TODO fix this to clean host
-        if match(cls.regex, host) or Record.DB.get(host) == "1":
+        if match(cls.regex, host):
+            res_data["block"] = True
+            res_data["block_regex"] = True
+            return cls.get_answers(reply, _type, host, handler)
+        elif Record.DB.get(host) == "1":
+            res_data["block"] = True
+            res_data["cache_hit"] = True
             return cls.get_answers(reply, _type, host, handler)
         return reply
 
