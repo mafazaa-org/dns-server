@@ -5,7 +5,7 @@ services:
         hostname: $FQDN_HOSTNAME
         networks:
             - dns-network
-        image: public.ecr.aws/c0y5g8k0/dns-server$ENV_NAME
+        image: public.ecr.aws/c0y5g8k0/dns-server$ENV_NAME:${SERVER_RELEASE:-latest}
         pull_policy: missing
         deploy:
             resources:
