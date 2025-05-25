@@ -70,17 +70,18 @@ class Network(Record):
                 )
 
             reply = DNSRecord.parse(proxy_r)
-            cls.insert(reply, host, _type)
+            cls.insert(reply, host, _type, res_data)
         except BaseException as e:
             raise e
         finally:
             return reply
 
     @classmethod
-    def insert(cls, reply: DNSRecord, host: str, _type: RecordType):
+    def insert(cls, reply: DNSRecord, host: str, _type: RecordType, res_data: dict):
         answer = reply.a.rdata.__str__()
 
         if Block.insert(host, answer):
+            res_data["block"] = True
             return
 
         Cache.insert(host, _type, reply.rr)

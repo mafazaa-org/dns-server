@@ -1,24 +1,35 @@
 from fluent.sender import FluentSender
-from .constants import ENV_NAME, LEVEL, SERVER_TYPE, LOGGING_HOST, LOGGING_PORT
+from .constants import LOG_LEVEL, LOG_HOST, LOG_PORT, LOG_INDEX
 
 class Log:
+    
+    levels = ["t", "d", "i", "w", "e"]
+    
     def __init__(self):
-        self.fluentd = FluentSender(f"{LEVEL}-{SERVER_TYPE}{ENV_NAME}", LOGGING_HOST, int(LOGGING_PORT))
+        self.fluentd = FluentSender(LOG_INDEX, LOG_HOST, int(LOG_PORT))
+        self.level = LOG_LEVEL
+        i = self.levels.index(LOG_LEVEL)
+        self.disabled = self.levels[:i]
+        for level in self.disabled:
+            setattr(self, level, lambda self, *args, **kwargs: None)
     
     def __getattr__(self, attr: str): 
         if attr.startswith("log"):
+            
             if attr.endswith(('reply', 'request')):
                 return lambda handler, reply: self.d(f"dnslogger.{attr}", {"data": reply.__str__()},handler)
-            return lambda handler, data: self.d(f"dnslogger.{attr}", {"data": data}, handler)
+            if attr == "log_error":
+                return lambda handler, e: self.e(f"dnslogger.{attr}", {"e": e.__str__()}, handler)
+            return lambda handler, data: self.d(f"dnslogger.{attr}", {"data": data.__str__()}, handler)
+
+
         return super().__getattr__(attr) 
     
     def t(self, event, data, handler = None):
-        if ENV_NAME:
-            self._log(event,'TRACE', data, handler)
+        self._log(event,'TRACE', data, handler)
           
     def d(self, event, data, handler = None):
-        if ENV_NAME:
-            self._log(event,'DEBUG', data, handler)
+        self._log(event,'DEBUG', data, handler)
     
     def i(self, event, data, handler = None):
         self._log(event,'INFO', data, handler) 
@@ -37,7 +48,10 @@ class Log:
         if handler:
             data = {**data, "source": self.get_src(handler)}
         data = {**data, "level": level }
-        self.fluentd.emit(f"{event}", data)
+        try:
+            self.fluentd.emit(f"{event}", data)
+        except:
+            pass
         
     def get_src(self, handler) -> dict:
        

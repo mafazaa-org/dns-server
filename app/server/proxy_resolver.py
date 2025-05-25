@@ -1,12 +1,11 @@
 from dnslib import RCODE
-from dnslib.dns import DNSRecord
+from dnslib.dns import DNSRecord, RR
 from dnslib.server import DNSHandler
 from app.constants import DEFAULT_PORT
 from .resolve import resolve
 from traceback import print_exc
 from ..logger import logger
 from ..records.record import Record
-from json import dumps
 
 class ProxyResolver:
     
@@ -30,10 +29,11 @@ class ProxyResolver:
     def resolve(self, request: DNSRecord, handler: DNSHandler):
         _type = request.q.qtype
         host = Record.clean_host(request.q.qname.__str__())
-        logger.i('req_start', {
+        query = {
         "type": _type,
         "qname" : host
-                }, handler)
+                }
+        logger.i('req_start', query , handler)
         
         reply = request.reply()
 
@@ -41,20 +41,32 @@ class ProxyResolver:
         try:
             reply = resolve(request, reply,handler,host,_type,res_data)
         except Exception as e:
-            logger.e('proxyresolver.error', {
+            logger.e('resolver_error', {
                             "msg": "exception occured while resolving request",
-                            "exception" : e
+                            "exception" : e.__str__(),
+                            **query
                         }, handler)
             print_exc()
             if not reply.rr:
                 reply.header.rcode = getattr(RCODE, "NXDOMAIN")
 
+        unique_rrs = []
+        seen = set()
+        for rr in reply.rr:
+            rr: RR
+            # Create a hashable representation for comparison
+            rr_key = (rr.rtype, str(rr.rdata))
+            print(rr_key)
+            if rr_key not in seen:
+                seen.add(rr_key)
+                unique_rrs.append(rr)
+
+        reply.rr = unique_rrs
         
-        for ans in reply.rr:
+        for ans in unique_rrs:
             answer = Record.clean_host(ans.rdata.__str__())
             res_data["answers"].append({"answer": answer, "type": ans.rtype})
 
-        print(dumps({"host": host, "type": _type,**res_data}, indent=4))
-        logger.i('reply', res_data, handler)
+        logger.i('reply', {**query,**res_data}, handler)
         
         return reply

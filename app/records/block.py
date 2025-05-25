@@ -68,11 +68,11 @@ class Block(Record):
         res_data,
     ):
         #TODO fix this to clean host
-        if match(cls.regex, host):
+        if match(cls.regex, Record.clean_host(host, True)):
             res_data["block"] = True
             res_data["block_regex"] = True
             return cls.get_answers(reply, _type, host, handler)
-        elif Record.DB.get(host) == "1":
+        elif Record.DB.get(Record.clean_host(host, True)) == "1":
             res_data["block"] = True
             res_data["cache_hit"] = True
             return cls.get_answers(reply, _type, host, handler)
@@ -80,13 +80,15 @@ class Block(Record):
 
     @classmethod
     def insert(cls, host, answer):
+        
+        host = Record.clean_host(host,True)
 
         disable = answer in [
             "146.112.61.106",
             "::ffff:9270:3d6a",
             "::ffff:146.112.61.104",
             "146.112.61.104",
-        ] and not Record.DB.exists(host)
+        ] and not Record.DB.exists((host))
 
         Record.DB.set(
             host,

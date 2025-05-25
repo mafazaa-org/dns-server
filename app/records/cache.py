@@ -46,10 +46,10 @@ class Cache(Record):
                 continue
 
             key = f"{cls.clean_host(ans.rname.__str__())}:{ans.rtype}"
-            Record.DB.lpush(key, answer)
+            Record.DB.sadd(key, answer)
             Record.DB.expire(key, ans.ttl)
 
-        Record.DB.lpush(main_key, *answers)
+        Record.DB.sadd(main_key, *answers)
         Record.DB.expire(main_key, ttl)
         
     @classmethod
@@ -74,8 +74,6 @@ class Cache(Record):
         cname_key = cls.to_key(host, 5)
         cname_ans = cls.query_db(cname_key)
         cname_ttl = cls.DB.ttl(cname_key)
-        cname_answers = map(lambda x: Answer(5, x, cname_ttl), cname_ans)
-        
         if len(cname_ans) > 0:
             ttl = cls.DB.ttl(cname_key)
             answers = map(lambda x: Answer(5, x, cname_ttl), cname_ans)
@@ -91,7 +89,7 @@ class Cache(Record):
         ## Ger answer        
         key = cls.to_key(host, _type)
         ans = cls.query_db(key)
-
+        
         if len(ans) > 0:
             ttl = cls.DB.ttl(key)
             answers = map(lambda x: Answer(_type, x, ttl), ans)

@@ -22,7 +22,7 @@ class Record:
     to_string = lambda x: x
     to_key = lambda host, _type: f"{host}:{_type}"
     DB: Redis
-    query_db = lambda key: Record.DB.lrange(key, 0, -1)
+    query_db = lambda key: Record.DB.smembers(key)
     name : str
 
     regex: str
@@ -59,5 +59,6 @@ class Record:
 
 
     @classmethod
-    def clean_host(cls, host: str):
-        return host.removesuffix(".")
+    def clean_host(cls, host: str, remove_www=False):
+        h = host.removesuffix(".")
+        return h.removeprefix("www.") if remove_www else h
