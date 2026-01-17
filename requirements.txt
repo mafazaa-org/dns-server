@@ -4,7 +4,7 @@ dnslib==0.9.26
 idna==3.10
 python-dotenv==1.1.0
 redis==5.2.1
-requests==2.32.3
+requests==2.32.4
 typing_extensions==4.13.2
 urllib3==2.4.0
 fluent-logger==0.11.1
